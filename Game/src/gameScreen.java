@@ -18,96 +18,113 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class gameScreen extends JFrame implements KeyListener, MouseListener, ActionListener {
+	
+	int counter = 0;
+	
 	JFrame jf;
+ 
+	JPanel jpToolbar;
+	JPanel jpWhiteBoard;
+	JPanel jpMenu;
+	JPanel jpParticipant;
+	JPanel jpChat;
+	
 	BorderLayout blMainScreen;
-	BorderLayout blChatPanel;
+	BorderLayout blMenu;
 	BorderLayout blButton;
-	GridLayout blScreenMenu;
+	GridLayout glToolbar;
+	
 	JLabel jlCounter; 
+	
 	JTextField textField;
-	JPanel jpWhitePanel;
-	JPanel jpScreenMenu;
-	JPanel jpMenuPanel;
-	JPanel jpParticipantPanel;
-	JPanel jpChatPanel;
 	
 	
 	
-	public void gameScreen() {
-		jf = new JFrame("IT IS THE GAME THAT SHOOK THE WORLD FROM STMP STUDIOS");
+	
+	public void MainScreen() {
+		jf = new JFrame("THE GAME THAT SHOOK THE WORLD FROM STMP STUDIOS");
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setSize(850,500);
-		Screen();
+		ScreenPanels();
 		jf.setVisible(true);
 		
 		
 	}
 	
-	public void Screen() {
+	public void ScreenPanels() {
 		blMainScreen = new BorderLayout();
 		jf.setLayout(blMainScreen);
-		whiteScreen();
+		WhiteBoard();
 		Menu();
 		
 	}
-	public void whiteScreen() {
-		jpWhitePanel = new JPanel();
-		jpWhitePanel.setBackground(Color.white);
-		ScreenMenu();
-		jf.add(jpWhitePanel);
+	public void WhiteBoard() {
+		jpWhiteBoard = new JPanel();
+		jpWhiteBoard.setBackground(Color.white);
+		
+		Toolbar();
+		Counter();
+		jf.add(jpWhiteBoard);
 	}
-	public void ScreenMenu() {
-		jpScreenMenu = new JPanel();
-		blScreenMenu = new GridLayout();
-		jpScreenMenu.setLayout(blScreenMenu);
-		jpWhitePanel.add(jpScreenMenu);
+	public void Counter() {
+		jlCounter = new JLabel("    COUNTER: "+ counter);
+		jpWhiteBoard.add(jlCounter);
+		
+	}
+	public void Toolbar() {
+		jpToolbar = new JPanel();
+		glToolbar = new GridLayout(1,5);
+		jpToolbar.setLayout(glToolbar);
+		jpWhiteBoard.add(jpToolbar);
+		JButton Line = new JButton("Line");
 		JButton Square = new JButton("Square");
 		JButton Circle = new JButton("Circle");
 		JButton Pen = new JButton("Pen");
 		JButton selectColor = new JButton("Select Color");
-		jpScreenMenu.add(Pen);
-		jpScreenMenu.add(Square);
-		jpScreenMenu.add(Circle);
-		jpScreenMenu.add(selectColor);
+		jpToolbar.add(Pen);
+		jpToolbar.add(Line);
+		jpToolbar.add(Square);
+		jpToolbar.add(Circle);
+		jpToolbar.add(selectColor);
 	}
 	public void Menu() {
-		jpMenuPanel = new JPanel();
-		blChatPanel = new BorderLayout();
-		jpMenuPanel.setLayout(blChatPanel);
-		jf.add(jpMenuPanel,BorderLayout.EAST);
+		jpMenu = new JPanel();
+		blMenu= new BorderLayout();
+		jpMenu.setLayout(blMenu);
+		jf.add(jpMenu,BorderLayout.EAST);
 		Participants();
-		Chat();
+		ChatPanel();
 	}
 	public void Participants() {
-		jpParticipantPanel = new JPanel();
-		jpMenuPanel.add(jpParticipantPanel,BorderLayout.NORTH);
-		jpParticipantPanel.setBackground(Color.LIGHT_GRAY);
+		jpParticipant = new JPanel();
+		jpMenu.add(jpParticipant,BorderLayout.NORTH);
+		jpParticipant.setBackground(Color.LIGHT_GRAY);
 		JLabel triv = new JLabel("Participants");
-		jpParticipantPanel.add(triv);
+		jpParticipant.add(triv);
 		 
 	}
-	public void Chat() {
-		jpChatPanel = new JPanel();
-		jpMenuPanel.add(jpChatPanel);
+	public void ChatPanel() {
+		jpChat = new JPanel();
+		jpMenu.add(jpChat);
 		blButton = new BorderLayout();
-		jpChatPanel.setLayout(blButton);
+		jpChat.setLayout(blButton);
 		JLabel chatScreen = new JLabel("Chat");
-		jpChatPanel.setBackground(Color.lightGray);
-		jpChatPanel.add(chatScreen);
+		jpChat.setBackground(Color.lightGray);
+		jpChat.add(chatScreen);
 		textField();
 		Button();
 		
 	}
 	public void Button() {
-		JButton hand= new JButton("");
+		JButton Hand= new JButton("");
 		Image handIcon = new ImageIcon(this.getClass().getResource("HandIcon.png")).getImage();
-		hand.setIcon(new ImageIcon(handIcon));
-		jpChatPanel.add(hand,BorderLayout.NORTH);
+		Hand.setIcon(new ImageIcon(handIcon));
+		jpChat.add(Hand,BorderLayout.NORTH);
 		
 	}
 	public void textField() {
 		textField = new JTextField();
-		jpMenuPanel.add(textField,BorderLayout.SOUTH);
+		jpMenu.add(textField,BorderLayout.SOUTH);
 		
 	}
 	
