@@ -9,6 +9,18 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -22,7 +34,8 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	GridLayout blScreenMenu;
 	BorderLayout blChatPanel;
 	BorderLayout blButton;
-	JLabel jlCounter;
+	JLabel jlCounter; 
+	JTextField textField;
 	JPanel jpWhitePanel;
 	JPanel jpScreenMenu;
 	JPanel jpMenuPanel;
@@ -93,9 +106,17 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		JButton hand= new JButton("");
 		Image handIcon = new ImageIcon(this.getClass().getResource("HandIcon.png")).getImage();
 		hand.setIcon(new ImageIcon(handIcon));
-		JButton triv = new JButton("Chat");
+		JLabel chatScreen = new JLabel("Chat");
+		jpChatPanel.setBackground(Color.lightGray);
 		jpChatPanel.add(hand,BorderLayout.NORTH);
-		jpChatPanel.add(triv);
+		jpChatPanel.add(chatScreen);
+		textField();
+		
+	}
+	public void textField() {
+		textField = new JTextField();
+		jpMenuPanel.add(textField,BorderLayout.SOUTH);
+		
 	}
 	
 	
