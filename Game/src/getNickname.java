@@ -22,6 +22,10 @@ public class getNickname {
 		
 		String Nickname = NicknameField.getText();
 		
+		if (Nickname.isEmpty()) {
+			Nickname = "Player";
+		}
+		System.out.println(Nickname);
 		return Nickname;
 		}
 	public static boolean permission () {

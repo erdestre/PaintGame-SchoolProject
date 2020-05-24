@@ -32,7 +32,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	JPanel jpMenu;
 	JPanel jpParticipant;
 	JPanel jpChat;
-	JPanel jpAnswer;
+	JLabel jlAnswer;
 	
 	BorderLayout blWhiteBoard;
 	BorderLayout blMainScreen;
@@ -54,9 +54,6 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		permission = getNickname.permission();
 		ScreenPanels();
 		jf.setVisible(true);
-		if (permission == true) {
-			Answer = getAnswer.getAnswer();
-		}
 
 		
 	}
@@ -73,19 +70,24 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jpWhiteBoard.setBackground(Color.white);
 		if (permission == true) {
 			Toolbar();
-			Answer();
+			jlAnswer = new JLabel("YOUR WORD IS:  ");
+			jpWhiteBoard.add(jlAnswer);
+			setAnswer();
 		}
-		Counter();
+		CounterLabel();
 		jf.add(jpWhiteBoard);
 	}
-	public void Answer () {
-		jpAnswer = new JPanel();
-		jpWhiteBoard.add(jpAnswer);
+	public void setAnswer () {
+		Answer = getAnswer.getAnswer();
+		jlAnswer.setText("YOUR WORD IS:  " + Answer);
 	}
-	public void Counter() {
-		jlCounter = new JLabel("    COUNTER: "+ counter);
+	public void CounterLabel() {
+		jlCounter = new JLabel("COUNTER:  " + counter);
 		jpWhiteBoard.add(jlCounter);
-		
+	}
+	public void setCounter() {
+		counter++;
+		jlCounter.setText("COUNTER:  " + counter);
 	}
 	public void Toolbar() {
 		jpToolbar = new JPanel();
@@ -97,11 +99,13 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		JButton Circle = new JButton("Circle");
 		JButton Pen = new JButton("Pen");
 		JButton selectColor = new JButton("Select Color");
+		JButton Reset = new JButton("Reset");
 		jpToolbar.add(Pen);
 		jpToolbar.add(Line);
 		jpToolbar.add(Square);
 		jpToolbar.add(Circle);
 		jpToolbar.add(selectColor);
+		jpToolbar.add(Reset);
 	}
 	public void Menu() {
 		jpMenu = new JPanel();
@@ -143,6 +147,16 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		textField = new JTextField();
 		jpMenu.add(textField,BorderLayout.SOUTH);
 		
+	}
+	
+	public void RESET_GAME () {
+		// Set Word
+		setAnswer();
+		// Reset Counter
+		counter = -1;
+		setCounter();		
+		// Reset Screen
+		//
 	}
 	
 	
