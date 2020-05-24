@@ -9,7 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -28,7 +30,9 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	JPanel jpMenu;
 	JPanel jpParticipant;
 	JPanel jpChat;
+	JPanel jpAnswer;
 	
+	BorderLayout blWhiteBoard;
 	BorderLayout blMainScreen;
 	BorderLayout blMenu;
 	BorderLayout blButton;
@@ -63,8 +67,13 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jpWhiteBoard.setBackground(Color.white);
 		
 		Toolbar();
+		Answer();
 		Counter();
 		jf.add(jpWhiteBoard);
+	}
+	public void Answer () {
+		jpAnswer = new JPanel();
+		jpWhiteBoard.add(jpAnswer);
 	}
 	public void Counter() {
 		jlCounter = new JLabel("    COUNTER: "+ counter);
@@ -92,23 +101,24 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		blMenu= new BorderLayout();
 		jpMenu.setLayout(blMenu);
 		jf.add(jpMenu,BorderLayout.EAST);
-		Participants();
+		Players();
 		ChatPanel();
 	}
-	public void Participants() {
+	public void Players() {
 		jpParticipant = new JPanel();
 		jpMenu.add(jpParticipant,BorderLayout.NORTH);
 		jpParticipant.setBackground(Color.LIGHT_GRAY);
-		JLabel triv = new JLabel("Participants");
+		JButton triv = new JButton("All Players");
 		jpParticipant.add(triv);
 		 
 	}
 	public void ChatPanel() {
 		jpChat = new JPanel();
-		jpMenu.add(jpChat);
+		jpMenu.add(jpChat,BorderLayout.CENTER);
 		blButton = new BorderLayout();
 		jpChat.setLayout(blButton);
-		JLabel chatScreen = new JLabel("Chat");
+		JTextPane chatScreen = new JTextPane();
+		chatScreen.setEditable(false);
 		jpChat.setBackground(Color.lightGray);
 		jpChat.add(chatScreen);
 		textField();

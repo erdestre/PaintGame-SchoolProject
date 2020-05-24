@@ -16,10 +16,21 @@ public class getNickname {
 		};
 		UIManager.put("OptionPane.cancelButtonText", "Teacher");
 		UIManager.put("OptionPane.okButtonText", "Student");
-		JOptionPane.showConfirmDialog(null, fields, "THE GAME THAT SHOOK THE WORLD FROM STMP STUDIOS",JOptionPane.OK_CANCEL_OPTION);
+		int aaa = JOptionPane.showConfirmDialog(null, fields, "THE GAME THAT SHOOK THE WORLD FROM STMP STUDIOS",
+				JOptionPane.OK_CANCEL_OPTION);
+		
+		if(aaa == JOptionPane.OK_OPTION) {
+			
+		}
+		if(aaa == JOptionPane.CANCEL_OPTION) {
+			
+		}
+		
 		String Nickname = NicknameField.getText();
 		
 		return Nickname;
-		}
-
+	}
+		
+		
+	
 }

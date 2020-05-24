@@ -1,14 +1,19 @@
 import javax.swing.JFrame;
 
+
+
 public class Source {
 
 	public static void main(String[] args) {
 		
-		String Nickname = getNickname.getNickname();
-		System.out.println(Nickname);
+		String Nickname;
+		String Answer;
+		Boolean playerType;
+		
+		Nickname = getNickname.getNickname();
 		gameScreen gs = new gameScreen();
 		gs.MainScreen();
-		String Answer = getAnswer.getAnswer();
+		Answer = getAnswer.getAnswer();
 		
 		
 		
