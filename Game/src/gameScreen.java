@@ -22,6 +22,8 @@ import java.awt.event.MouseListener;
 public class gameScreen extends JFrame implements KeyListener, MouseListener, ActionListener {
 	
 	int counter = 0;
+	boolean permission;
+	String Answer;
 	
 	JFrame jf;
  
@@ -49,9 +51,13 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jf = new JFrame("THE GAME THAT SHOOK THE WORLD FROM STMP STUDIOS");
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setSize(850,500);
+		permission = getNickname.permission();
 		ScreenPanels();
 		jf.setVisible(true);
-		
+		if (permission == true) {
+			Answer = getAnswer.getAnswer();
+		}
+
 		
 	}
 	
@@ -65,9 +71,10 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	public void WhiteBoard() {
 		jpWhiteBoard = new JPanel();
 		jpWhiteBoard.setBackground(Color.white);
-		
-		Toolbar();
-		Answer();
+		if (permission == true) {
+			Toolbar();
+			Answer();
+		}
 		Counter();
 		jf.add(jpWhiteBoard);
 	}
@@ -101,10 +108,10 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		blMenu= new BorderLayout();
 		jpMenu.setLayout(blMenu);
 		jf.add(jpMenu,BorderLayout.EAST);
-		Players();
+		Participants();
 		ChatPanel();
 	}
-	public void Players() {
+	public void Participants() {
 		jpParticipant = new JPanel();
 		jpMenu.add(jpParticipant,BorderLayout.NORTH);
 		jpParticipant.setBackground(Color.LIGHT_GRAY);

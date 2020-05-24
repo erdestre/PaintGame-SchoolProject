@@ -4,6 +4,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 public class getNickname {
+	static int aaa;
 	public static String getNickname () {
 		JTextField NicknameField = new JTextField();
 		
@@ -16,21 +17,19 @@ public class getNickname {
 		};
 		UIManager.put("OptionPane.cancelButtonText", "Teacher");
 		UIManager.put("OptionPane.okButtonText", "Student");
-		int aaa = JOptionPane.showConfirmDialog(null, fields, "THE GAME THAT SHOOK THE WORLD FROM STMP STUDIOS",
+		aaa = JOptionPane.showConfirmDialog(null, fields, "THE GAME THAT SHOOK THE WORLD FROM STMP STUDIOS",
 				JOptionPane.OK_CANCEL_OPTION);
-		
-		if(aaa == JOptionPane.OK_OPTION) {
-			
-		}
-		if(aaa == JOptionPane.CANCEL_OPTION) {
-			
-		}
 		
 		String Nickname = NicknameField.getText();
 		
 		return Nickname;
+		}
+	public static boolean permission () {
+		if(getNickname.aaa == JOptionPane.CANCEL_OPTION) {
+			return true; //Teacher
+		}
+		else return false;
+	}
 	}
 		
-		
-	
-}
+
