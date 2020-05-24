@@ -25,7 +25,6 @@ public class getNickname {
 		if (Nickname.isEmpty()) {
 			Nickname = "Player";
 		}
-		System.out.println(Nickname);
 		return Nickname;
 		}
 	public static boolean permission () {

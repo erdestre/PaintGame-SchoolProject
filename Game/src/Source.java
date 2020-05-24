@@ -1,19 +1,20 @@
-import javax.swing.JFrame;
+
 
 
 
 public class Source {
 
+	static String Nickname;
+
 	public static void main(String[] args) {
 		
-		String Nickname;
 		
 		
 		
 		Nickname = getNickname.getNickname();
 		
-		gameScreen gs = new gameScreen();
-		gs.MainScreen();
+		gameScreen gS = new gameScreen();
+		gS.MainScreen();
 		
 		
 		

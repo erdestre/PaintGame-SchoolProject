@@ -6,8 +6,13 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -21,13 +26,15 @@ import java.awt.event.MouseListener;
 
 public class gameScreen extends JFrame implements KeyListener, MouseListener, ActionListener {
 	
+	Color color; 			
+	
 	int counter = 0;
 	boolean permission;
 	String Answer;
 	
 	JFrame jf;
  
-	JPanel jpToolbar;
+	JMenuBar jpToolbar;
 	JPanel jpWhiteBoard;
 	JPanel jpMenu;
 	JPanel jpParticipant;
@@ -44,20 +51,19 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	
 	JTextField textField;
 	
-	
+	JButton Line, Square, Circle, Pen, selectColor ,Reset, Pass;
 	
 	
 	public void MainScreen() {
 		jf = new JFrame("THE GAME THAT SHOOK THE WORLD FROM STMP STUDIOS");
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf.setSize(850,500);
+		jf.setSize(950,600);
 		permission = getNickname.permission();
 		ScreenPanels();
 		jf.setVisible(true);
 
 		
 	}
-	
 	public void ScreenPanels() {
 		blMainScreen = new BorderLayout();
 		jf.setLayout(blMainScreen);
@@ -79,7 +85,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	}
 	public void setAnswer () {
 		Answer = getAnswer.getAnswer();
-		jlAnswer.setText("YOUR WORD IS:  " + Answer);
+		jlAnswer.setText("YOUR WORD IS:  " + Answer + "    ");
 	}
 	public void CounterLabel() {
 		jlCounter = new JLabel("COUNTER:  " + counter);
@@ -90,21 +96,32 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jlCounter.setText("COUNTER:  " + counter);
 	}
 	public void Toolbar() {
-		jpToolbar = new JPanel();
+		jpToolbar = new JMenuBar();
 		glToolbar = new GridLayout(1,5);
 		jpToolbar.setLayout(glToolbar);
 		jpWhiteBoard.add(jpToolbar);
-		JButton Line = new JButton("Line");
-		JButton Square = new JButton("Square");
-		JButton Circle = new JButton("Circle");
-		JButton Pen = new JButton("Pen");
-		JButton selectColor = new JButton("Select Color");
-		JButton Reset = new JButton("Reset");
+		
+		Line = new JButton("Line");
+		Line.addActionListener(this);
+		Square = new JButton("Square");
+		Square.addActionListener(this);
+		Circle = new JButton("Circle");
+		Circle.addActionListener(this);
+		Pen = new JButton("Pen");
+		Pen.addActionListener(this);
+		selectColor = new JButton("Select Color");
+		selectColor.addActionListener(this);
+		Pass = new JButton("Pass");
+		Pass.addActionListener(this);
+		Reset = new JButton("Reset Game");
+		Reset.addActionListener(this);
+		
 		jpToolbar.add(Pen);
 		jpToolbar.add(Line);
 		jpToolbar.add(Square);
 		jpToolbar.add(Circle);
 		jpToolbar.add(selectColor);
+		jpToolbar.add(Pass);
 		jpToolbar.add(Reset);
 	}
 	public void Menu() {
@@ -141,14 +158,21 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		Image handIcon = new ImageIcon(this.getClass().getResource("HandIcon.png")).getImage();
 		Hand.setIcon(new ImageIcon(handIcon));
 		jpChat.add(Hand,BorderLayout.NORTH);
-		
 	}
 	public void textField() {
 		textField = new JTextField();
 		jpMenu.add(textField,BorderLayout.SOUTH);
 		
 	}
-	
+	public void AnotherRound () {
+		// Set Word
+		setAnswer();		
+		// Reset Counter
+		counter = -1;
+		setCounter();		
+		// Reset Screen
+		//
+	}
 	public void RESET_GAME () {
 		// Set Word
 		setAnswer();
@@ -158,13 +182,34 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		// Reset Screen
 		//
 	}
-	
-	
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
+		if (e.getSource() == Pen) {
+			
+		}
+		else if (e.getSource() == Line) {
+			
+		
+		}
+		else if (e.getSource() == Square) {
+			
+		}
+		else if (e.getSource() == Circle) {
+			
+		}
+		else if (e.getSource() == selectColor) {
+			color = JColorChooser.showDialog(this,"Select Color", Color.blue);
+			repaint();
+		}
+		else if (e.getSource() == Pass) {
+			AnotherRound();
+		}
+		else if (e.getSource() == Reset) {
+			RESET_GAME();
+		}
+		else {
+		JOptionPane.showMessageDialog(null, "Something Went Wrong");
+		}		
 	}
 
 	@Override
