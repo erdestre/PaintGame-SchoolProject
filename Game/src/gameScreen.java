@@ -140,7 +140,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	public void Participants() {
 		jpParticipant = new JPanel();
 		jpMenu.add(jpParticipant,BorderLayout.NORTH);
-		jpParticipant.setBackground(Color.LIGHT_GRAY);
+		jpParticipant.setBackground(Color.lightGray);
 		participantScreen= new JTextArea("Players:\t\t\n");
 		participantScreen.append(Source.Nickname+"\n");
 		participantScreen.setEditable(false);
@@ -258,9 +258,10 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode()==KeyEvent.VK_ENTER) {
-			chatScreen.append(Source.Nickname+": "+textField.getText()+"\n");
-			textField.setText("");
-			
+			if (!textField.getText().isEmpty()) {
+				chatScreen.append(Source.Nickname+": "+textField.getText()+"\n");
+				textField.setText("");
+			}	
 		}
 	}
 
