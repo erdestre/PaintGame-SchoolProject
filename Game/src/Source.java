@@ -11,7 +11,7 @@ public class Source {
 		
 		
 		
-		Nickname = getNickname.getNickname();
+		Nickname = Account.Account();
 		
 		gameScreen gS = new gameScreen();
 		gS.MainScreen();
@@ -20,5 +20,4 @@ public class Source {
 		
 		
 	}
-
 }

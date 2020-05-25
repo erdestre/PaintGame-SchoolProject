@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -41,6 +42,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	JPanel jpChat;
 	JLabel jlAnswer;
 	
+	
 	BorderLayout blWhiteBoard;
 	BorderLayout blMainScreen;
 	BorderLayout blMenu;
@@ -49,16 +51,19 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	
 	JLabel jlCounter; 
 	
+	JTextArea participantScreen;
+	JTextArea chatScreen; 
 	JTextField textField;
 	
 	JButton Line, Square, Circle, Pen, selectColor ,Reset, Pass;
+	JButton Send;
 	
 	
 	public void MainScreen() {
 		jf = new JFrame("THE GAME THAT SHOOK THE WORLD FROM STMP STUDIOS");
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf.setSize(950,600);
-		permission = getNickname.permission();
+		jf.setSize(1050,600);
+		permission = Account.permission();
 		ScreenPanels();
 		jf.setVisible(true);
 
@@ -136,8 +141,10 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jpParticipant = new JPanel();
 		jpMenu.add(jpParticipant,BorderLayout.NORTH);
 		jpParticipant.setBackground(Color.LIGHT_GRAY);
-		JButton triv = new JButton("All Players");
-		jpParticipant.add(triv);
+		participantScreen= new JTextArea("Players:\t\t\n");
+		participantScreen.append(Source.Nickname+"\n");
+		participantScreen.setEditable(false);
+		jpParticipant.add(participantScreen);
 		 
 	}
 	public void ChatPanel() {
@@ -145,7 +152,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jpMenu.add(jpChat,BorderLayout.CENTER);
 		blButton = new BorderLayout();
 		jpChat.setLayout(blButton);
-		JTextPane chatScreen = new JTextPane();
+		chatScreen = new JTextArea();
 		chatScreen.setEditable(false);
 		jpChat.setBackground(Color.lightGray);
 		jpChat.add(chatScreen);
@@ -162,7 +169,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	public void textField() {
 		textField = new JTextField();
 		jpMenu.add(textField,BorderLayout.SOUTH);
-		
+		textField.addKeyListener(this);
 	}
 	public void AnotherRound () {
 		// Set Word
@@ -214,7 +221,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -247,11 +254,14 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		// TODO Auto-generated method stub
 
 	}
-
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+		if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+			chatScreen.append(Source.Nickname+": "+textField.getText()+"\n");
+			textField.setText("");
+			
+		}
 	}
 
 	@Override
