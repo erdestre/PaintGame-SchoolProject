@@ -16,7 +16,7 @@ public class Drawing extends JComponent {
     // Graphics2D object ==> used to draw on
     private Graphics2D g2;
     // Mouse coordinates
-    private int X, Y, oX, oY;
+    public int X, Y, oX, oY;
     public Color Dcolor;
     public boolean candraw = false;
     public Drawing() {
@@ -39,6 +39,7 @@ public class Drawing extends JComponent {
                     // draw line if g2 context not null
                     g2.setPaint(Dcolor);
                     g2.drawLine(X, Y, oX, oY);
+
                     
                     // refresh draw area to repaint
                     repaint();

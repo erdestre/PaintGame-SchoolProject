@@ -20,10 +20,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.time.chrono.Era;
 
 public class gameScreen extends JFrame implements KeyListener, MouseListener, ActionListener {
 	Drawing d = new Drawing();
-	Color color;
 	static int counter = 0;
 	boolean permission;
 	String Answer;
@@ -52,7 +52,6 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	JTextField textField;
 
 	JButton Line, Square, Circle, Pen, selectColor, Eraser, Pass;
-	JButton Send;
 
 
 	public void MainScreen() {
@@ -198,13 +197,15 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 
 		}
 		else if (e.getSource() == selectColor) {
-			color = JColorChooser.showDialog(this,"Select Color", Color.blue);
-
-
+			d.Dcolor = JColorChooser.showDialog(this,"Select Color", Color.blue);
 			repaint();
 		}
 		else if (e.getSource() == Pass) {
 			AnotherRound();
+		}
+		else if (e.getSource() == Eraser)
+		{
+
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Something Went Wrong");
