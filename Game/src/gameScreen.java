@@ -2,18 +2,19 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import java.time.chrono.Era;
 
 public class gameScreen extends JFrame implements KeyListener, MouseListener, ActionListener {
 	Drawing d = new Drawing();
 	static int counter = 0;
-	boolean permission;
+	static boolean permission;
 	String Answer;
 
 	JFrame jf;
 
-	JMenuBar jpToolbar;
+	JMenuBar jpToolbar; 
 	JPanel jpWhiteBoard;
 	JPanel jpMenu;
 	JPanel jpParticipant;
@@ -21,7 +22,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	JLabel jlAnswer;
 	JPanel JpTopmenu;
 
-
+	BorderLayout bljf;
 	BorderLayout blWhiteBoard;
 	BorderLayout blMainScreen;
 	BorderLayout blMenu;
@@ -40,13 +41,19 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	public void MainScreen() {
 		jf = new JFrame("THE GAME THAT SHOOK THE WORLD FROM STMP STUDIOS");
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf.setSize(1050,600);
 		permission = Account.permission();
+		jf.setLayout(bljf);
 		ScreenPanels();
+		if (permission == true) {			
+			int length = Answer.length();
+			jf.setSize(1050+length*5,600);
+		}
+		else {
+			jf.setSize(1050,600);
+		}
 		jf.setVisible(true);
 		/*jf.addComponentListener(new ComponentAdapter( ) {
 			public void componentResized(ComponentEvent ev) {
-
 			}
 		});
 */
@@ -78,15 +85,15 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	}
 	public void setAnswer () {
 		Answer = getAnswer.getAnswer();
-		jlAnswer.setText("Your Word Is: " + Answer);
+		jlAnswer.setText("Your Word Is: " + Answer.toLowerCase() + " |");
 	}
 	public void CounterLabel() {
-		jlCounter = new JLabel("Counter:  " + counter);
+		jlCounter = new JLabel("Counter: " + counter);
 		jpWhiteBoard.add(jlCounter);
 	}
 	public static void setCounter() {
 		counter++;
-		jlCounter.setText("Counter:  " + counter);
+		jlCounter.setText("Counter: " + counter);
 	}
 	public void Toolbar() {
 		jpToolbar = new JMenuBar();
@@ -102,7 +109,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		Circle.addActionListener(this);
 		Pen = new JButton("Pen");
 		Pen.addActionListener(this);
-		Eraser = new JButton("Eraser");
+		Eraser = new JButton("Clear");
 		Eraser.addActionListener(this);
 		selectColor = new JButton("Select Color");
 		selectColor.addActionListener(this);
@@ -130,7 +137,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jpParticipant = new JPanel();
 		jpMenu.add(jpParticipant,BorderLayout.NORTH);
 		jpParticipant.setBackground(Color.lightGray);
-		participantScreen= new JTextArea("Players:\t\t\n");
+		participantScreen= new JTextArea("Players:\t\t\n",4,15);
 		participantScreen.append(Source.Nickname+"\n");
 		participantScreen.setEditable(false);
 		jpParticipant.add(participantScreen);
@@ -142,7 +149,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jpMenu.add(jpChat,BorderLayout.CENTER);
 		blButton = new BorderLayout();
 		jpChat.setLayout(blButton);
-		chatScreen = new JTextArea();
+		chatScreen = new JTextArea(15,15);
 		chatScreen.setEditable(false);
 		jpChat.setBackground(Color.lightGray);
 		jpChat.add(chatScreen);
@@ -169,6 +176,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		setCounter();
 		// Reset Screen
 		//
+		d.clear();
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -223,9 +231,10 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		}
 		else if (e.getSource() == Pass) {
 			AnotherRound();
+			
 		}
 		else if (e.getSource() == Eraser)
-		{
+		{	
 			Eraser.setBackground(Color.LIGHT_GRAY);
 			Pen.setBackground(null);
 			Square.setBackground(null);

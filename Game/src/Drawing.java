@@ -24,6 +24,8 @@ public class Drawing extends JComponent {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
+                
+                
                 if (g2 != null && mode==2) {
 
                     g2.setPaint(Dcolor);
@@ -34,7 +36,7 @@ public class Drawing extends JComponent {
                 if (g2 != null && mode==3) {
 
                     g2.setPaint(Dcolor);
-                    g2.drawRect(oX, oY, X, Y);
+                    g2.drawRect(oX, oY, X-oX, Y-oY);
 
                     repaint();
 
@@ -42,7 +44,7 @@ public class Drawing extends JComponent {
                 if (g2 != null && mode==4) {
 
                     g2.setPaint(Dcolor);
-                    g2.drawOval(oX, oY, X, Y);
+                    g2.drawOval(oX, oY, X-oX, Y-oY);
 
 
                     repaint();
@@ -55,8 +57,9 @@ public class Drawing extends JComponent {
             public void mousePressed(MouseEvent e) {
                 oX = e.getX();
                 oY = e.getY();
+                if (mode != 5 && gameScreen.permission == true) {
                 gameScreen.setCounter();
-
+                }
 
             }
         });
@@ -66,7 +69,6 @@ public class Drawing extends JComponent {
                 // coord x,y when drag mouse
                 X = e.getX();
                 Y = e.getY();
-                System.out.println(X+" "+Y);
 
                 if (g2 != null && mode==1) {
                     // draw line if g2 context not null
