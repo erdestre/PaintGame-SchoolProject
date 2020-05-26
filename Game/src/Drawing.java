@@ -1,8 +1,4 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -18,14 +14,50 @@ public class Drawing extends JComponent {
     // Mouse coordinates
     public int X, Y, oX, oY;
     public Color Dcolor;
-    public boolean candraw = false;
+    public int mode = 0;
+
+
     public Drawing() {
         setDoubleBuffered(false);
+//        g2.setStroke(new BasicStroke(5));
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                if (g2 != null && mode==2) {
+
+                    g2.setPaint(Dcolor);
+                    g2.drawLine(X, Y, oX, oY);
+                    repaint();
+
+                }
+                if (g2 != null && mode==3) {
+
+                    g2.setPaint(Dcolor);
+                    g2.drawRect(oX, oY, X, Y);
+
+                    repaint();
+
+                }
+                if (g2 != null && mode==4) {
+
+                    g2.setPaint(Dcolor);
+                    g2.drawOval(oX, oY, X, Y);
+
+
+                    repaint();
+
+                }
+
+            }
+        });
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 oX = e.getX();
                 oY = e.getY();
                 gameScreen.setCounter();
+
+
             }
         });
 
@@ -34,8 +66,9 @@ public class Drawing extends JComponent {
                 // coord x,y when drag mouse
                 X = e.getX();
                 Y = e.getY();
+                System.out.println(X+" "+Y);
 
-                if (g2 != null && candraw==true) {
+                if (g2 != null && mode==1) {
                     // draw line if g2 context not null
                     g2.setPaint(Dcolor);
                     g2.drawLine(X, Y, oX, oY);
@@ -47,6 +80,8 @@ public class Drawing extends JComponent {
                     oX = X;
                     oY = Y;
                 }
+
+
             }
         });
     }
@@ -72,6 +107,10 @@ public class Drawing extends JComponent {
         g2.fillRect(0, 0, getSize().width, getSize().height);
         g2.setPaint(Color.black);
         repaint();
+    }
+    public void resize()
+    {
+
     }
 
 

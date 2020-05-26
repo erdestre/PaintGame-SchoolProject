@@ -1,25 +1,8 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
+import javax.swing.*;
 
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.time.chrono.Era;
 
 public class gameScreen extends JFrame implements KeyListener, MouseListener, ActionListener {
@@ -61,7 +44,12 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		permission = Account.permission();
 		ScreenPanels();
 		jf.setVisible(true);
+		/*jf.addComponentListener(new ComponentAdapter( ) {
+			public void componentResized(ComponentEvent ev) {
 
+			}
+		});
+*/
 
 	}
 	public void ScreenPanels() {
@@ -77,6 +65,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jpWhiteBoard.setBackground(Color.white);
 		Container content = jf.getRootPane();
 		content.add(d);
+
 		jf.add(jpWhiteBoard,BorderLayout.NORTH);
 		jf.add(d);
 		if (permission == true) {
@@ -184,27 +173,68 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Pen) {
-			d.candraw = true;
+			d.mode = 1;
+
+			Eraser.setBackground(null);
+			Pen.setBackground(Color.LIGHT_GRAY);
+			Square.setBackground(null);
+			Circle.setBackground(null);
+			selectColor.setBackground(null);
+			Line.setBackground(null);
 		}
 		else if (e.getSource() == Line) {
-			d.candraw = false;
+			d.mode = 2;
+			Eraser.setBackground(null);
+			Pen.setBackground(null);
+			Square.setBackground(null);
+			Circle.setBackground(null);
+			selectColor.setBackground(null);
+			Line.setBackground(Color.LIGHT_GRAY);
 
 		}
 		else if (e.getSource() == Square) {
-
+		d.mode = 3;
+			Eraser.setBackground(null);
+			Pen.setBackground(null);
+			Square.setBackground(Color.LIGHT_GRAY);
+			Circle.setBackground(null);
+			selectColor.setBackground(null);
+			Line.setBackground(null);
 		}
 		else if (e.getSource() == Circle) {
-
+		d.mode = 4;
+			Eraser.setBackground(null);
+			Pen.setBackground(null);
+			Square.setBackground(null);
+			Circle.setBackground(Color.LIGHT_GRAY);
+			selectColor.setBackground(null);
+			Line.setBackground(null);
 		}
 		else if (e.getSource() == selectColor) {
+			Eraser.setBackground(null);
+			Pen.setBackground(null);
+			Square.setBackground(null);
+			Circle.setBackground(null);
+			selectColor.setBackground(Color.LIGHT_GRAY);
+			Line.setBackground(null);
 			d.Dcolor = JColorChooser.showDialog(this,"Select Color", Color.blue);
-			repaint();
+			selectColor.setBackground(null);
+
 		}
 		else if (e.getSource() == Pass) {
 			AnotherRound();
 		}
 		else if (e.getSource() == Eraser)
 		{
+			Eraser.setBackground(Color.LIGHT_GRAY);
+			Pen.setBackground(null);
+			Square.setBackground(null);
+			Circle.setBackground(null);
+			selectColor.setBackground(null);
+			Line.setBackground(null);
+
+		d.mode = 5;
+		d.clear();
 
 		}
 		else {
