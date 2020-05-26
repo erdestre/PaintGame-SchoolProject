@@ -37,6 +37,7 @@ public class Drawing extends JComponent {
 
                 if (g2 != null && candraw==true) {
                     // draw line if g2 context not null
+                    g2.setPaint(Dcolor);
                     g2.drawLine(X, Y, oX, oY);
                     
                     // refresh draw area to repaint
@@ -72,8 +73,8 @@ public class Drawing extends JComponent {
         repaint();
     }
 
-    public void CColor()
-    {
-       g2.setPaint(Dcolor);
-    }
+
+
+
+
 }

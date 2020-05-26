@@ -29,31 +29,32 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	String Answer;
 
 	JFrame jf;
- 
+
 	JMenuBar jpToolbar;
 	JPanel jpWhiteBoard;
 	JPanel jpMenu;
 	JPanel jpParticipant;
 	JPanel jpChat;
 	JLabel jlAnswer;
-	
-	
+	JPanel JpTopmenu;
+
+
 	BorderLayout blWhiteBoard;
 	BorderLayout blMainScreen;
 	BorderLayout blMenu;
 	BorderLayout blButton;
 	GridLayout glToolbar;
-	
-	JLabel jlCounter; 
-	
+
+	JLabel jlCounter;
+
 	JTextArea participantScreen;
-	JTextArea chatScreen; 
+	JTextArea chatScreen;
 	JTextField textField;
-	
+
 	JButton Line, Square, Circle, Pen, selectColor ,Reset, Pass;
 	JButton Send;
-	
-	
+
+
 	public void MainScreen() {
 		jf = new JFrame("THE GAME THAT SHOOK THE WORLD FROM STMP STUDIOS");
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,22 +63,26 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		ScreenPanels();
 		jf.setVisible(true);
 
-		
+
 	}
 	public void ScreenPanels() {
 		blMainScreen = new BorderLayout();
 		jf.setLayout(blMainScreen);
 		WhiteBoard();
 		Menu();
-		
+
 	}
 	public void WhiteBoard() {
 
 		jpWhiteBoard = new JPanel();
 		jpWhiteBoard.setBackground(Color.white);
-		Container content = jf.getContentPane();
+		Container content = jf.getRootPane();
 		content.add(d);
+		jf.add(jpWhiteBoard,BorderLayout.NORTH);
+		jf.add(d);
 
+
+		CounterLabel();
 		if (permission == true) {
 			d.candraw = true;
 			Toolbar();
@@ -85,9 +90,8 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			jpWhiteBoard.add(jlAnswer);
 			setAnswer();
 		}
-		CounterLabel();
-		jf.add(jpWhiteBoard);
-		jpWhiteBoard.add(d);
+
+
 
 	}
 	public void setAnswer () {
@@ -107,7 +111,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		glToolbar = new GridLayout(1,5);
 		jpToolbar.setLayout(glToolbar);
 		jpWhiteBoard.add(jpToolbar);
-		
+
 		Line = new JButton("Line");
 		Line.addActionListener(this);
 		Square = new JButton("Square");
@@ -122,7 +126,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		Pass.addActionListener(this);
 		Reset = new JButton("Reset Game");
 		Reset.addActionListener(this);
-		
+
 		jpToolbar.add(Pen);
 		jpToolbar.add(Line);
 		jpToolbar.add(Square);
@@ -133,6 +137,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	}
 	public void Menu() {
 		jpMenu = new JPanel();
+		JpTopmenu = new JPanel();
 		blMenu= new BorderLayout();
 		jpMenu.setLayout(blMenu);
 		jf.add(jpMenu,BorderLayout.EAST);
@@ -147,7 +152,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		participantScreen.append(Source.Nickname+"\n");
 		participantScreen.setEditable(false);
 		jpParticipant.add(participantScreen);
-		 
+
 	}
 
 	public void ChatPanel() {
@@ -161,7 +166,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jpChat.add(chatScreen);
 		textField();
 		Button();
-		
+
 	}
 	public void Button() {
 		JButton Hand= new JButton("");
@@ -176,10 +181,10 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	}
 	public void AnotherRound () {
 		// Set Word
-		setAnswer();		
+		setAnswer();
 		// Reset Counter
 		counter = -1;
-		setCounter();		
+		setCounter();
 		// Reset Screen
 		//
 	}
@@ -188,24 +193,24 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		setAnswer();
 		// Reset Counter
 		counter = -1;
-		setCounter();		
+		setCounter();
 		// Reset Screen
 		//
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Pen) {
-		d.candraw = true;
+			d.candraw = true;
 		}
 		else if (e.getSource() == Line) {
-			
-		
+
+
 		}
 		else if (e.getSource() == Square) {
-			
+
 		}
 		else if (e.getSource() == Circle) {
-			
+
 		}
 		else if (e.getSource() == selectColor) {
 			color = JColorChooser.showDialog(this,"Select Color", Color.blue);
@@ -220,13 +225,13 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			RESET_GAME();
 		}
 		else {
-		JOptionPane.showMessageDialog(null, "Something Went Wrong");
-		}		
+			JOptionPane.showMessageDialog(null, "Something Went Wrong");
+		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+
 
 	}
 
@@ -259,14 +264,14 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode()==KeyEvent.VK_ENTER) {
 			if (!textField.getText().isEmpty()) {
 				chatScreen.append(Source.Nickname+": "+textField.getText()+"\n");
 				textField.setText("");
-			}	
+			}
 		}
 	}
 
