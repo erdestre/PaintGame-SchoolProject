@@ -1,8 +1,4 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
@@ -26,13 +22,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class gameScreen extends JFrame implements KeyListener, MouseListener, ActionListener {
-	
-	Color color; 			
-	
+	Drawing d = new Drawing();
+	Color color;
 	int counter = 0;
 	boolean permission;
 	String Answer;
-	
+
 	JFrame jf;
  
 	JMenuBar jpToolbar;
@@ -77,9 +72,14 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		
 	}
 	public void WhiteBoard() {
+
 		jpWhiteBoard = new JPanel();
 		jpWhiteBoard.setBackground(Color.white);
+		Container content = jf.getContentPane();
+		content.add(d);
+
 		if (permission == true) {
+			d.candraw = true;
 			Toolbar();
 			jlAnswer = new JLabel("YOUR WORD IS:  ");
 			jpWhiteBoard.add(jlAnswer);
@@ -87,6 +87,8 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		}
 		CounterLabel();
 		jf.add(jpWhiteBoard);
+		jpWhiteBoard.add(d);
+
 	}
 	public void setAnswer () {
 		Answer = getAnswer.getAnswer();
@@ -147,6 +149,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jpParticipant.add(participantScreen);
 		 
 	}
+
 	public void ChatPanel() {
 		jpChat = new JPanel();
 		jpMenu.add(jpChat,BorderLayout.CENTER);
@@ -192,7 +195,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Pen) {
-			
+		d.candraw = true;
 		}
 		else if (e.getSource() == Line) {
 			
@@ -206,6 +209,8 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		}
 		else if (e.getSource() == selectColor) {
 			color = JColorChooser.showDialog(this,"Select Color", Color.blue);
+
+
 			repaint();
 		}
 		else if (e.getSource() == Pass) {
