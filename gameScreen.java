@@ -51,7 +51,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	JTextArea chatScreen;
 	JTextField textField;
 
-	JButton Line, Square, Circle, Pen, selectColor, Eraser, Reset, Pass;
+	JButton Line, Square, Circle, Pen, selectColor, Eraser, Pass;
 	JButton Send;
 
 
