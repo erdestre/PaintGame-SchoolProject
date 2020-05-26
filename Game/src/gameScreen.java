@@ -24,7 +24,7 @@ import java.awt.event.MouseListener;
 public class gameScreen extends JFrame implements KeyListener, MouseListener, ActionListener {
 	Drawing d = new Drawing();
 	Color color;
-	int counter = 0;
+	static int counter = 0;
 	boolean permission;
 	String Answer;
 
@@ -45,13 +45,13 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	BorderLayout blButton;
 	GridLayout glToolbar;
 
-	JLabel jlCounter;
+	static JLabel jlCounter;
 
 	JTextArea participantScreen;
 	JTextArea chatScreen;
 	JTextField textField;
 
-	JButton Line, Square, Circle, Pen, selectColor ,Reset, Pass;
+	JButton Line, Square, Circle, Pen, selectColor, Eraser, Pass;
 	JButton Send;
 
 
@@ -80,31 +80,25 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		content.add(d);
 		jf.add(jpWhiteBoard,BorderLayout.NORTH);
 		jf.add(d);
-
-
-		CounterLabel();
 		if (permission == true) {
-			d.candraw = true;
 			Toolbar();
 			jlAnswer = new JLabel("YOUR WORD IS:  ");
 			jpWhiteBoard.add(jlAnswer);
 			setAnswer();
 		}
-
-
-
+		CounterLabel();
 	}
 	public void setAnswer () {
 		Answer = getAnswer.getAnswer();
-		jlAnswer.setText("YOUR WORD IS:  " + Answer + "    ");
+		jlAnswer.setText("Your Word Is: " + Answer);
 	}
 	public void CounterLabel() {
-		jlCounter = new JLabel("COUNTER:  " + counter);
+		jlCounter = new JLabel("Counter:  " + counter);
 		jpWhiteBoard.add(jlCounter);
 	}
-	public void setCounter() {
+	public static void setCounter() {
 		counter++;
-		jlCounter.setText("COUNTER:  " + counter);
+		jlCounter.setText("Counter:  " + counter);
 	}
 	public void Toolbar() {
 		jpToolbar = new JMenuBar();
@@ -120,20 +114,20 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		Circle.addActionListener(this);
 		Pen = new JButton("Pen");
 		Pen.addActionListener(this);
+		Eraser = new JButton("Eraser");
+		Eraser.addActionListener(this);
 		selectColor = new JButton("Select Color");
 		selectColor.addActionListener(this);
 		Pass = new JButton("Pass");
 		Pass.addActionListener(this);
-		Reset = new JButton("Reset Game");
-		Reset.addActionListener(this);
 
 		jpToolbar.add(Pen);
 		jpToolbar.add(Line);
 		jpToolbar.add(Square);
 		jpToolbar.add(Circle);
+		jpToolbar.add(Eraser);
 		jpToolbar.add(selectColor);
 		jpToolbar.add(Pass);
-		jpToolbar.add(Reset);
 	}
 	public void Menu() {
 		jpMenu = new JPanel();
@@ -188,22 +182,13 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		// Reset Screen
 		//
 	}
-	public void RESET_GAME () {
-		// Set Word
-		setAnswer();
-		// Reset Counter
-		counter = -1;
-		setCounter();
-		// Reset Screen
-		//
-	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Pen) {
 			d.candraw = true;
 		}
 		else if (e.getSource() == Line) {
-
+			d.candraw = false;
 
 		}
 		else if (e.getSource() == Square) {
@@ -220,9 +205,6 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		}
 		else if (e.getSource() == Pass) {
 			AnotherRound();
-		}
-		else if (e.getSource() == Reset) {
-			RESET_GAME();
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Something Went Wrong");

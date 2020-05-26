@@ -23,9 +23,9 @@ public class Drawing extends JComponent {
         setDoubleBuffered(false);
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-
                 oX = e.getX();
                 oY = e.getY();
+                gameScreen.setCounter();
             }
         });
 
