@@ -24,7 +24,10 @@ public class Drawing extends JComponent {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                
+                	int fx = Math.min(X, oX);
+                	int fy = Math.min(Y, oY);
+                	int fw = Math.abs(X- oX);
+                	int fh = Math.abs(Y- oY);
                 
                 if (g2 != null && mode==2) {
 
@@ -34,9 +37,9 @@ public class Drawing extends JComponent {
 
                 }
                 if (g2 != null && mode==3) {
-
+                	
                     g2.setPaint(Dcolor);
-                    g2.drawRect(oX, oY, X-oX, Y-oY);
+                    g2.drawRect(fx, fy, fw, fh);
 
                     repaint();
 
@@ -44,7 +47,7 @@ public class Drawing extends JComponent {
                 if (g2 != null && mode==4) {
 
                     g2.setPaint(Dcolor);
-                    g2.drawOval(oX, oY, X-oX, Y-oY);
+                    g2.drawOval(fx, fy, fw, fh);
 
 
                     repaint();

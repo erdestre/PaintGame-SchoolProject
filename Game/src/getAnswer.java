@@ -10,10 +10,10 @@ public class getAnswer {
 		UIManager.put("OptionPane.okButtonText", "Ok");
 		JFrame f = new JFrame();
 		String Answer = JOptionPane.showInputDialog(f, 
-				"Select Your Word: (Max 15 character)",
+				"Select Your Word: (Min 2, Max 15 characters)",
 				"THE GAME THAT SHOOK THE WORLD FROM STMP STUDIOS",
 				JOptionPane.INFORMATION_MESSAGE);
-		if (Answer == null || Answer.length() >= 15) {
+		if (Answer == null || Answer.length() >= 15 || Answer.length() < 2) {
 			return getAnswer();
 		}
 		else return Answer;

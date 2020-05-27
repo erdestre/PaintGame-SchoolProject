@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Time;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -20,6 +21,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	JPanel jpParticipant;
 	JPanel jpChat;
 	JLabel jlAnswer;
+	JLabel jlTimer;
 	JPanel JpTopmenu;
 
 	BorderLayout bljf;
@@ -72,6 +74,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jpWhiteBoard.setBackground(Color.white);
 		Container content = jf.getRootPane();
 		content.add(d);
+		d.mode =1;
 
 		jf.add(jpWhiteBoard,BorderLayout.NORTH);
 		jf.add(d);
@@ -81,6 +84,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			jpWhiteBoard.add(jlAnswer);
 			setAnswer();
 		}
+		
 		CounterLabel();
 	}
 	public void setAnswer () {
@@ -150,12 +154,13 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		blButton = new BorderLayout();
 		jpChat.setLayout(blButton);
 		chatScreen = new JTextArea(15,15);
+		chatScreen.setWrapStyleWord(true);
+		chatScreen.setLineWrap(true);
 		chatScreen.setEditable(false);
 		jpChat.setBackground(Color.lightGray);
 		jpChat.add(chatScreen);
 		textField();
 		Button();
-
 	}
 	public void Button() {
 		JButton Hand= new JButton("");
@@ -242,8 +247,10 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			selectColor.setBackground(null);
 			Line.setBackground(null);
 
+		int memory = d.mode;
 		d.mode = 5;
 		d.clear();
+		d.mode = memory;
 
 		}
 		else {
