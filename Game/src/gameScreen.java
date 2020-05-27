@@ -34,7 +34,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	static JLabel jlCounter;
 
 	JTextArea participantScreen;
-	JTextArea chatScreen;
+	static JTextArea chatScreen;
 	JTextField textField;
 
 	JButton Line, Square, Circle, Pen, selectColor, Eraser, Pass;
@@ -49,8 +49,10 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		if (permission == true) {			
 			int length = Answer.length();
 			jf.setSize(1050+length*5,600);
+			//Server.main();
 		}
 		else {
+			Client.main();
 			jf.setSize(1050,600);
 		}
 		jf.setVisible(true);
@@ -161,6 +163,9 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jpChat.add(chatScreen);
 		textField();
 		Button();
+	}
+	public void chatScreen() {
+		
 	}
 	public void Button() {
 		JButton Hand= new JButton("");
@@ -300,6 +305,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			if (!textField.getText().isEmpty()) {
 				chatScreen.append(Source.Nickname+": "+textField.getText()+"\n");
 				textField.setText("");
+				Server.msg_send(textField.getText());
 			}
 		}
 	}
