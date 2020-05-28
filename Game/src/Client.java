@@ -48,7 +48,6 @@ public class Client{
 			dispMessage("\nStreams\n");
 		}
 		private static void processConn() throws IOException{
-			send("Successful");
 			String msg = "";
 			do {
 				try {
@@ -73,11 +72,11 @@ public class Client{
 				e.printStackTrace();
 			}
 		}
-		private static void send(String text) {
+		public static void send(String Nickname, String text) {
 			try {
-				oos.writeObject("S:"+text);
+				oos.writeObject(Nickname+": "+text+"\n");
 				oos.flush();
-				dispMessage("\nS:" + text);
+				dispMessage(Nickname + ": " +text+"\n");
 			}
 			catch(IOException e){
 				gameScreen.chatScreen.append("\nError"); //jts is text area

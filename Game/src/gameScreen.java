@@ -306,8 +306,12 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode()==KeyEvent.VK_ENTER) {
 			if (!textField.getText().isEmpty()) {
-				chatScreen.append(Source.Nickname+": "+textField.getText()+"\n");
-				//Server.msg(textField.getText());
+				if (permission==true){
+					Server.send(Source.Nickname, textField.getText());
+				}
+				else {
+					Client.send(Source.Nickname, textField.getText());
+				}
 				textField.setText("");
 			}
 		}

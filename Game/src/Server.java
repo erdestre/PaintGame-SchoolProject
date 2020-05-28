@@ -40,7 +40,7 @@ public class Server{
 		private static void waitConn() throws IOException{
 			dispMessage("Please wait...\n");
 			conn = server.accept();
-			dispMessage(Client.Nickname() + "Has Joined The Room");
+			dispMessage("New Player Has Joined The Room!!");
 			
 		}
 		private static void streams() throws IOException {
@@ -48,10 +48,8 @@ public class Server{
 			oos.flush();
 			
 			ois = new ObjectInputStream(conn.getInputStream());
-			dispMessage("\nStreams\n");
 		}
 		private static void processConn() throws IOException{
-			send("Successful");
 			String msg = "";
 			do {
 				try {
@@ -76,11 +74,11 @@ public class Server{
 				e.printStackTrace();
 			}
 		}
-		private static void send(String text) {
+		public static void send(String Nickname, String text) {
 			try {
-				oos.writeObject("S:"+text);
+				oos.writeObject(Nickname+": "+text+"\n");
 				oos.flush();
-				dispMessage("\nS:" + text);
+				dispMessage(Nickname + ": " +text+"\n");
 			}
 			catch(IOException e){
 				gameScreen.chatScreen.append("\nError"); //jt is text area
