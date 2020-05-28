@@ -1,41 +1,101 @@
 import java.net.*;
+import java.util.ArrayList;
+
+import javax.swing.SwingUtilities;
+
 import java.io.*;
 
 
 public class Server{
-	private ServerSocket Ssocket;
-	private Socket Csocket;
-	private PrintWriter out;
-	private BufferedReader in;
-
-	public void start() {
-
-		try {
-			Ssocket = new ServerSocket(6666);
-			Csocket = Ssocket.accept();
-			out = new PrintWriter(Csocket.getOutputStream(), true);
-			in = new BufferedReader(new InputStreamReader(Csocket.getInputStream()));
-			System.out.println("Server Started!");
+	
+	private static String client_Name;
+	private static ObjectOutputStream oos;
+	private static ObjectInputStream ois;
+	private static ServerSocket server;
+	private static Socket conn;
+		public Server() {
+			
 		}
-		catch (IOException ex)
-		{
-			System.out.println("error at starting:"+ex);
+		public static void runServer() {
+			try {
+				server = new ServerSocket(6666,100);
+				while(true) {
+					try {
+						waitConn();
+						streams();
+						processConn();
+					}
+					catch(EOFException e){
+						dispMessage("\nServer Terminated Conn\n");
+					}
+					finally {
+						closeConn();
+					}
+				}
+			}
+			catch(IOException e) {
+				
+			}
 		}
-	}
-	public void stop()
-	{
-		try {
-			in.close();
-			out.close();
-			Csocket.close();
-			Ssocket.close();
+		private static void waitConn() throws IOException{
+			dispMessage("Please wait...\n");
+			conn = server.accept();
+			dispMessage(Client.Nickname() + "Has Joined The Room");
+			
 		}
-		catch (IOException ex)
-		{
-			System.out.println("error at stopping:"+ex);
+		private static void streams() throws IOException {
+			oos = new ObjectOutputStream(conn.getOutputStream());
+			oos.flush();
+			
+			ois = new ObjectInputStream(conn.getInputStream());
+			dispMessage("\nStreams\n");
 		}
-
-	}
-
-
+		private static void processConn() throws IOException{
+			send("Successful");
+			String msg = "";
+			do {
+				try {
+					msg = (String) ois.readObject();
+					dispMessage("\n" + msg);
+				}catch(ClassNotFoundException e){
+					dispMessage("Unknown");
+					
+				}
+				
+			} while(!msg.equals("C:ExitTheSystem"));
+		}
+		private static void closeConn() {
+			dispMessage("\nTerminating Conn\n");
+			
+			try {
+				oos.close();
+				ois.close();
+				conn.close();
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
+		}
+		private static void send(String text) {
+			try {
+				oos.writeObject("S:"+text);
+				oos.flush();
+				dispMessage("\nS:" + text);
+			}
+			catch(IOException e){
+				gameScreen.chatScreen.append("\nError"); //jt is text area
+				
+			}
+		}
+		private static void dispMessage(final String string) {
+			SwingUtilities.invokeLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					gameScreen.chatScreen.append(string);
+					
+				}
+			});
+			
+		}
 }

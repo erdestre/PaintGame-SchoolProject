@@ -49,13 +49,15 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		if (permission == true) {			
 			int length = Answer.length();
 			jf.setSize(1050+length*5,600);
-			//Server.main();
+			jf.setVisible(true);
+			Server.runServer();
 		}
 		else {
-			Client.main();
+			
 			jf.setSize(1050,600);
+			jf.setVisible(true);
+			Client.runClient();
 		}
-		jf.setVisible(true);
 		/*jf.addComponentListener(new ComponentAdapter( ) {
 			public void componentResized(ComponentEvent ev) {
 			}
@@ -85,8 +87,6 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			jlAnswer = new JLabel("YOUR WORD IS:  ");
 			jpWhiteBoard.add(jlAnswer);
 			setAnswer();
-			Server Sv = new Server();
-			Sv.start();
 		}
 		
 		CounterLabel();
@@ -157,12 +157,13 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jpMenu.add(jpChat,BorderLayout.CENTER);
 		blButton = new BorderLayout();
 		jpChat.setLayout(blButton);
-		chatScreen = new JTextArea(15,15);
+		chatScreen = new JTextArea();
+		chatScreen.setEditable(false);
 		chatScreen.setWrapStyleWord(true);
 		chatScreen.setLineWrap(true);
-		chatScreen.setEditable(false);
+		add(new JScrollPane(chatScreen),BorderLayout.CENTER); //why it isn't working ???
 		jpChat.setBackground(Color.lightGray);
-		jpChat.add(chatScreen);
+		jpChat.add(chatScreen,BorderLayout.CENTER);
 		textField();
 		Button();
 	}
@@ -246,7 +247,8 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			
 		}
 		else if (e.getSource() == Eraser)
-		{
+		{	
+			Eraser.setBackground(Color.LIGHT_GRAY);
 			Pen.setBackground(null);
 			Square.setBackground(null);
 			Circle.setBackground(null);
@@ -305,8 +307,8 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		if(e.getKeyCode()==KeyEvent.VK_ENTER) {
 			if (!textField.getText().isEmpty()) {
 				chatScreen.append(Source.Nickname+": "+textField.getText()+"\n");
+				//Server.msg(textField.getText());
 				textField.setText("");
-				//Server.msg_send(textField.getText());
 			}
 		}
 	}
