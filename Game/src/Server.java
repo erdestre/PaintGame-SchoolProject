@@ -1,37 +1,41 @@
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
+import java.io.*;
 
-public class Server extends javax.swing.JFrame{
-	static ServerSocket ss;
-	static Socket s;
-	static DataInputStream din;
-	static DataOutputStream dout;
-	static String Message;
-	public Server() {
-		;
-	}
-	public static void main() {
-		String msgin = "";
+
+public class Server{
+	private ServerSocket Ssocket;
+	private Socket Csocket;
+	private PrintWriter out;
+	private BufferedReader in;
+
+	public void start() {
+
 		try {
-			ss = new ServerSocket(1201);
-			s = ss.accept();
-			din = new DataInputStream(s.getInputStream());
-			dout = new DataOutputStream(s.getOutputStream());
-			while(!msgin.equals("exit")) {
-				msgin = din.readUTF();
-				gameScreen.chatScreen.append(Message.trim()+"\n"+ msgin);
-			
-		}}
-			catch(Exception e) {
-			
+			Ssocket = new ServerSocket(6666);
+			Csocket = Ssocket.accept();
+			out = new PrintWriter(Csocket.getOutputStream(), true);
+			in = new BufferedReader(new InputStreamReader(Csocket.getInputStream()));
+			System.out.println("Server Started!");
+		}
+		catch (IOException ex)
+		{
+			System.out.println("error at starting:"+ex);
 		}
 	}
-public static void msg_send(String Msg) {
-		Message = Msg;
-}
-public static void msg_receive(String Msg) {
-		Message = Msg;
-}
+	public void stop()
+	{
+		try {
+			in.close();
+			out.close();
+			Csocket.close();
+			Ssocket.close();
+		}
+		catch (IOException ex)
+		{
+			System.out.println("error at stopping:"+ex);
+		}
+
+	}
+
+
 }

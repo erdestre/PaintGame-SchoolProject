@@ -85,6 +85,8 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			jlAnswer = new JLabel("YOUR WORD IS:  ");
 			jpWhiteBoard.add(jlAnswer);
 			setAnswer();
+			Server Sv = new Server();
+			Sv.start();
 		}
 		
 		CounterLabel();
@@ -244,8 +246,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			
 		}
 		else if (e.getSource() == Eraser)
-		{	
-			Eraser.setBackground(Color.LIGHT_GRAY);
+		{
 			Pen.setBackground(null);
 			Square.setBackground(null);
 			Circle.setBackground(null);
@@ -305,7 +306,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			if (!textField.getText().isEmpty()) {
 				chatScreen.append(Source.Nickname+": "+textField.getText()+"\n");
 				textField.setText("");
-				Server.msg_send(textField.getText());
+				//Server.msg_send(textField.getText());
 			}
 		}
 	}
