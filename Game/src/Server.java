@@ -68,8 +68,11 @@ public class Server{
 			String msg = "";
 			do {
 				try {
-					msg = (String) ois.readObject();
-					dispMessage(msg);
+					byte a = ois.readByte();
+					if (a == 1) {
+						msg = (String) ois.readObject();
+						dispMessage(msg);
+					}
 				}catch(ClassNotFoundException e){
 					dispMessage("Unknown");
 					
@@ -91,6 +94,7 @@ public class Server{
 		}
 		public static void send(String Nickname, String text) {
 			try {
+				oos.writeByte(1);
 				oos.writeObject(Nickname+": "+text+"\n");
 				oos.flush();
 				dispMessage(Nickname + ": " +text+"\n");
