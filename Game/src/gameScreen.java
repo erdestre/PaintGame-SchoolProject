@@ -8,7 +8,7 @@ import javax.swing.border.Border;
 import java.time.chrono.Era;
 
 public class gameScreen extends JFrame implements KeyListener, MouseListener, ActionListener {
-	Drawing d = new Drawing();
+	public static Drawing d = new Drawing();
 	static int counter = 0;
 	static boolean permission;
 	String Answer;
@@ -106,6 +106,9 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	public static void setCounter() {
 		counter++;
 		jlCounter.setText("Counter: " + counter);
+		if (permission == true) {
+			Server.setCounter();
+		}
 	}
 	public void Toolbar() {
 		jpToolbar = new JMenuBar();
@@ -269,6 +272,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			JOptionPane.showMessageDialog(null, "Something Went Wrong");
 		}
 	}
+
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

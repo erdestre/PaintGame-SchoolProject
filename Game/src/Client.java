@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.net.*;
 import java.util.ArrayList;
 
@@ -80,7 +81,15 @@ public class Client{
 						case 2:
 							int[] a = (int[])ois.readObject();
 
-							System.out.println(a[0]+" "+a[1]+a[2]+a[3]+a[4]);
+							gameScreen.d.cdraw(a[0],a[1],a[2],a[3],a[4]);
+							break;
+						case 3:
+							//Color z = ois.readObject();
+							gameScreen.d.Dcolor=
+							break;
+						case 6:
+							gameScreen.setCounter();
+							break;
 					}
 				}catch(ClassNotFoundException e){
 					dispMessage("Unknown");

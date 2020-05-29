@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.net.*;
 import java.util.ArrayList;
 
@@ -125,7 +126,7 @@ public class Server{
 			
 		}
 		public static void sendpaintinfo(int m,int x,int y,int ox,int oy){
-			int[] a = new int[4];
+			int[] a = new int[5];
 			try {
 
 				a[0]=m;
@@ -145,4 +146,26 @@ public class Server{
 				System.out.println("error at sending mouse cords: "+e);
 			}
 		}
+		public static void sendpaintcolor(Color c)
+		{
+			try {
+				oos.writeByte(3);
+				oos.writeObject(c);
+				oos.flush();
+			}
+			catch (IOException e)
+			{
+				System.out.println("error at sending mouse cords: "+e);
+			}
+		}
+	public static void setCounter() {
+		try {
+			oos.write(6);
+			oos.flush();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
+	}
 }

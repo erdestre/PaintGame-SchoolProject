@@ -118,6 +118,35 @@ public class Drawing extends JComponent {
         if (gameScreen.permission == true && Server.playerjoined==true)
         Server.sendpaintinfo(mode,X,Y,oX,oY);
     }
+    public void cdraw(int cm,int cx,int cy,int cox,int coy)
+    {
+        switch (cm) {
+            case 1:
+                g2.setPaint(Dcolor);
+                g2.drawLine(cx, cy, cox, coy);
+                repaint();
+                break;
+            case 2:
+                g2.setPaint(Dcolor);
+                g2.drawLine(cx, cy, cox, coy);
+                repaint();
+                break;
+            case 3:
+                g2.setPaint(Dcolor);
+                g2.drawRect(cx, cy, cox, coy);
+                repaint();
+                break;
+            case 4:
+                g2.setPaint(Dcolor);
+                g2.drawOval(cx, cy, cox, coy);
+                repaint();
+            break;
+            case 5:
+                clear();
+            break;
+        }
+    }
+
 
 
 
