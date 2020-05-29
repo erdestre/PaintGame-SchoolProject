@@ -19,7 +19,6 @@ public class Drawing extends JComponent {
 
     public Drawing() {
         setDoubleBuffered(false);
-//        g2.setStroke(new BasicStroke(5));
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -33,6 +32,7 @@ public class Drawing extends JComponent {
 
                     g2.setPaint(Dcolor);
                     g2.drawLine(X, Y, oX, oY);
+                    send(mode,X, Y, oX, oY);;
                     repaint();
 
                 }
@@ -40,6 +40,7 @@ public class Drawing extends JComponent {
                 	
                     g2.setPaint(Dcolor);
                     g2.drawRect(fx, fy, fw, fh);
+                    send(mode,fx,fy,fw,fh);;
 
                     repaint();
 
@@ -48,6 +49,7 @@ public class Drawing extends JComponent {
 
                     g2.setPaint(Dcolor);
                     g2.drawOval(fx, fy, fw, fh);
+                    send(mode,fx,fy,fw,fh);
 
 
                     repaint();
@@ -77,7 +79,7 @@ public class Drawing extends JComponent {
                     // draw line if g2 context not null
                     g2.setPaint(Dcolor);
                     g2.drawLine(X, Y, oX, oY);
-                    send();
+                    send(mode,X, Y, oX, oY);
                     
                     // refresh draw area to repaint
                     repaint();
@@ -113,10 +115,10 @@ public class Drawing extends JComponent {
         g2.setPaint(Color.black);
         repaint();
     }
-    public void send()
+    public void send(int m, int x, int y, int ox,int oy)
     {
         if (gameScreen.permission == true && Server.playerjoined==true)
-        Server.sendpaintinfo(mode,X,Y,oX,oY);
+        Server.sendpaintinfo(m,x,y,ox,oy);
     }
     public void cdraw(int cm,int cx,int cy,int cox,int coy)
     {
@@ -146,6 +148,8 @@ public class Drawing extends JComponent {
             break;
         }
     }
+
+
 
 
 

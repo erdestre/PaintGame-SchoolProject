@@ -82,12 +82,16 @@ public class Client{
 							int[] a = (int[])ois.readObject();
 
 							gameScreen.d.cdraw(a[0],a[1],a[2],a[3],a[4]);
+
 							break;
 						case 3:
-							Color z;// = ois.readObject();
+							//Color z;// = ois.readObject();
 
 
-							gameScreen.d.Dcolor= z;
+							//gameScreen.d.Dcolor= z;
+							break;
+						case 4:
+							gameScreen.d.clear();
 							break;
 						case 6:
 							gameScreen.setCounter();

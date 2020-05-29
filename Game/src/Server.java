@@ -160,12 +160,23 @@ public class Server{
 		}
 	public static void setCounter() {
 		try {
-			oos.write(6);
+			oos.writeByte(6);
 			oos.flush();
 		} catch (IOException e) {
 
 			e.printStackTrace();
 		}
 
+	}
+	public static void clearscreen()
+	{
+		try {
+			oos.writeByte(4);
+
+			oos.flush();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
 	}
 }

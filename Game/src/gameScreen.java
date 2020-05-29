@@ -30,6 +30,8 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	BorderLayout blMenu;
 	BorderLayout blButton;
 	GridLayout glToolbar;
+	JPanel jpButton;
+	GridLayout glButton;
 
 	static JLabel jlCounter;
 
@@ -178,10 +180,16 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		
 	}
 	public void Button() {
+		jpButton = new JPanel();
+		glButton = new GridLayout(1,2);
+		jpButton.setLayout(glButton);
+		jpChat.add(jpButton,BorderLayout.NORTH);
 		JButton Hand= new JButton("");
 		Image handIcon = new ImageIcon(this.getClass().getResource("HandIcon.png")).getImage();
 		Hand.setIcon(new ImageIcon(handIcon));
-		jpChat.add(Hand,BorderLayout.NORTH);
+		jpButton.add(Hand);
+		jlTimer = new JLabel("adana");
+		jpButton.add(jlTimer);
 	}
 	public void textField() {
 		textField = new JTextField();
@@ -257,8 +265,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			
 		}
 		else if (e.getSource() == Eraser)
-		{	
-			Eraser.setBackground(Color.LIGHT_GRAY);
+		{
 			Pen.setBackground(null);
 			Square.setBackground(null);
 			Circle.setBackground(null);
@@ -269,6 +276,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		d.mode = 5;
 		d.clear();
 		d.mode = memory;
+		Server.clearscreen();
 
 		}
 		else {
