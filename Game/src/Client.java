@@ -13,6 +13,7 @@ public class Client{
 	private ServerSocket server;
 	private static Socket client;
 	private static String srv;
+	private static byte flag;
 		public Client(String info) {
 			srv = info;
 			
@@ -70,10 +71,16 @@ public class Client{
 			do {
 
 				try {
-					byte a = ois.readByte();
-					if (a == 1) {
+					flag = ois.readByte();
+					switch(flag) {
+						case 1:
 						msg = (String) ois.readObject();
 						dispMessage(msg);
+						break;
+						case 2:
+							int[] a = (int[])ois.readObject();
+
+							System.out.println(a[0]+" "+a[1]+a[2]+a[3]+a[4]);
 					}
 				}catch(ClassNotFoundException e){
 					dispMessage("Unknown");

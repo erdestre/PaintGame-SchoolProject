@@ -77,7 +77,7 @@ public class Drawing extends JComponent {
                     // draw line if g2 context not null
                     g2.setPaint(Dcolor);
                     g2.drawLine(X, Y, oX, oY);
-
+                    send();
                     
                     // refresh draw area to repaint
                     repaint();
@@ -113,9 +113,10 @@ public class Drawing extends JComponent {
         g2.setPaint(Color.black);
         repaint();
     }
-    public void resize()
+    public void send()
     {
-
+        if (gameScreen.permission == true && Server.playerjoined==true)
+        Server.sendpaintinfo(mode,X,Y,oX,oY);
     }
 
 

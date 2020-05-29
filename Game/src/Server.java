@@ -13,6 +13,7 @@ public class Server{
 	private static ObjectInputStream ois;
 	private static ServerSocket server;
 	private static Socket conn;
+	public static boolean playerjoined =false;
 		public Server() {
 			
 		}
@@ -63,6 +64,7 @@ public class Server{
 			dispMessage("Please wait...\n");
 			conn = server.accept();
 			dispMessage("New Player Has Joined The Room!!\n");
+			playerjoined =true;
 			
 		}
 		private static void streams() throws IOException {
@@ -122,11 +124,20 @@ public class Server{
 			});
 			
 		}
-		public static void sendpaintinfo(int a[]) throws IOException {
+		public static void sendpaintinfo(int m,int x,int y,int ox,int oy){
+			int[] a = new int[4];
 			try {
+
+				a[0]=m;
+				a[1]=x;
+				a[2]=y;
+				a[3]=ox;
+				a[4]=oy;
 				oos.writeByte(2);
-				for(int i=0;i<5;i++)
-				oos.writeInt(a[i]);
+				oos.writeObject(a);
+				oos.flush();
+
+
 
 			}
 			catch (IOException e)
