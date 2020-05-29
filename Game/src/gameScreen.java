@@ -245,7 +245,10 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			Circle.setBackground(null);
 			selectColor.setBackground(Color.LIGHT_GRAY);
 			Line.setBackground(null);
-			d.Dcolor = JColorChooser.showDialog(this,"Select Color", Color.blue);
+			Color temp;
+			temp = JColorChooser.showDialog(this,"Select Color", Color.blue);
+			d.Dcolor = temp;
+			Server.sendpaintcolor(temp);
 			selectColor.setBackground(null);
 
 		}
