@@ -47,10 +47,11 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jf.setLayout(bljf);
 		ScreenPanels();
 		if (permission == true) {
-			Server.runServer();
+
 			int length = Answer.length();
 			jf.setSize(1050+length*5,600);
 			jf.setVisible(true);
+			Server.runServer();
 
 			
 		}

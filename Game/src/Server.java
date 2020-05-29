@@ -126,7 +126,7 @@ public class Server{
 			try {
 				oos.writeByte(2);
 				for(int i=0;i<5;i++)
-				oos.writeInt(a[1]);
+				oos.writeInt(a[i]);
 
 			}
 			catch (IOException e)
