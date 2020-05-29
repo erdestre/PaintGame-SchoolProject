@@ -38,6 +38,13 @@ public class Server{
 				
 			}
 		}
+		public static void drawdata() throws IOException{
+			oos.writeByte(2);
+			int info[] = new int[5];
+
+
+
+		}
 		private static void Participants() throws IOException{
 			String Nickname =Source.Nickname;
 			oos.writeObject(Nickname);
@@ -114,5 +121,17 @@ public class Server{
 				}
 			});
 			
+		}
+		public static void sendpaintinfo(int a[]) throws IOException {
+			try {
+				oos.writeByte(2);
+				for(int i=0;i<5;i++)
+				oos.writeInt(a[1]);
+
+			}
+			catch (IOException e)
+			{
+				System.out.println("error at sending mouse cords: "+e);
+			}
 		}
 }
