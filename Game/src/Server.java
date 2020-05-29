@@ -8,7 +8,7 @@ import java.io.*;
 
 public class Server{
 	
-	private static String client_Name;
+	
 	private static ObjectOutputStream oos;
 	private static ObjectInputStream ois;
 	private static ServerSocket server;
@@ -23,6 +23,7 @@ public class Server{
 					try {
 						waitConn();
 						streams();
+						Participants();
 						processConn();
 					}
 					catch(EOFException e){
@@ -37,10 +38,24 @@ public class Server{
 				
 			}
 		}
+		private static void Participants() throws IOException{
+			String Nickname =Source.Nickname;
+			oos.writeObject(Nickname);
+			try {
+				Nickname = (String) ois.readObject();
+			} catch (ClassNotFoundException e) {
+				
+				e.printStackTrace();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+			gameScreen.participantScreen.append(Nickname);
+		}
 		private static void waitConn() throws IOException{
 			dispMessage("Please wait...\n");
 			conn = server.accept();
-			dispMessage("New Player Has Joined The Room!!");
+			dispMessage("New Player Has Joined The Room!!\n");
 			
 		}
 		private static void streams() throws IOException {
@@ -54,7 +69,7 @@ public class Server{
 			do {
 				try {
 					msg = (String) ois.readObject();
-					dispMessage("\n" + msg);
+					dispMessage(msg);
 				}catch(ClassNotFoundException e){
 					dispMessage("Unknown");
 					

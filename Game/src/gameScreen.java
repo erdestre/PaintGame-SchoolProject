@@ -33,7 +33,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 
 	static JLabel jlCounter;
 
-	JTextArea participantScreen;
+	static JTextArea participantScreen;
 	static JTextArea chatScreen;
 	JTextField textField;
 
@@ -51,12 +51,14 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			jf.setSize(1050+length*5,600);
 			jf.setVisible(true);
 			Server.runServer();
+			
 		}
 		else {
 			
 			jf.setSize(1050,600);
 			jf.setVisible(true);
 			Client.runClient();
+			//Server.(Source.Nickname);
 		}
 		/*jf.addComponentListener(new ComponentAdapter( ) {
 			public void componentResized(ComponentEvent ev) {
@@ -78,11 +80,11 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jpWhiteBoard.setBackground(Color.white);
 		Container content = jf.getRootPane();
 		content.add(d);
-		d.mode =1;
 
 		jf.add(jpWhiteBoard,BorderLayout.NORTH);
 		jf.add(d);
 		if (permission == true) {
+			d.mode =1;
 			Toolbar();
 			jlAnswer = new JLabel("YOUR WORD IS:  ");
 			jpWhiteBoard.add(jlAnswer);

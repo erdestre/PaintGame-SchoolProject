@@ -15,13 +15,16 @@ public class Client{
 	private static String srv;
 		public Client(String info) {
 			srv = info;
+			
 		}
-		public static void runClient() {
+		public static void runClient()  {
 			try {
 				while(true) {
 					try {
+						
 						connToS();
 						streams();
+						Participants();
 						processConn();
 					}
 					catch(EOFException e){
@@ -36,6 +39,20 @@ public class Client{
 				
 			}
 		}
+		private static void Participants() throws IOException{
+			String Nickname =Source.Nickname;
+			oos.writeObject(Nickname);
+			try {
+				Nickname = (String) ois.readObject();
+			} catch (ClassNotFoundException e) {
+
+				e.printStackTrace();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+			gameScreen.participantScreen.append(Nickname);
+		}
 		private static void connToS() throws IOException{
 			dispMessage("Attempting");
 			client = new Socket(InetAddress.getByName(srv),6666);
@@ -46,13 +63,14 @@ public class Client{
 			
 			ois = new ObjectInputStream(client.getInputStream());
 			dispMessage("\nStreams\n");
+			
 		}
 		private static void processConn() throws IOException{
 			String msg = "";
 			do {
 				try {
 					msg = (String) ois.readObject();
-					dispMessage("\n" + msg);
+					dispMessage(msg);
 				}catch(ClassNotFoundException e){
 					dispMessage("Unknown");
 					
@@ -99,4 +117,5 @@ public class Client{
 			return Nickname;
 			
 		}
+		
 		}
