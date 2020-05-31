@@ -11,10 +11,6 @@ public class Account {
 		Object[] fields = {
 				"Please Enter Your Nickname: ", NicknameField
 		};
-		Object[] selectType = {
-				"Teacher",
-				"Student"
-		};
 		UIManager.put("OptionPane.cancelButtonText", "Teacher");
 		UIManager.put("OptionPane.okButtonText", "Student");
 		aaa = JOptionPane.showConfirmDialog(null, fields, "THE GAME THAT SHOOK THE WORLD FROM STMP STUDIOS",
@@ -35,5 +31,4 @@ public class Account {
 	}
 	}
 		
-
 
