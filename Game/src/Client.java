@@ -85,16 +85,22 @@ public class Client{
 
 							break;
 						case 3:
-							//Color z;// = ois.readObject();
+							Color z = (Color) ois.readObject();
 
 
-							//gameScreen.d.Dcolor= z;
+							gameScreen.d.Dcolor= z;
 							break;
 						case 4:
 							gameScreen.d.clear();
 							break;
+						
 						case 6:
 							gameScreen.setCounter();
+							break;
+						case 7:
+							gameScreen.counter = -1;
+							gameScreen.setCounter();
+							gameScreen.d.clear();
 							break;
 					}
 				}catch(ClassNotFoundException e){
