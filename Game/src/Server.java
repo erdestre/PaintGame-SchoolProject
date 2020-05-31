@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.net.*;
+import java.sql.Time;
 import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
@@ -67,6 +68,7 @@ public class Server{
 			dispMessage("New Player Has Joined The Room!!\n");
 			playerjoined =true;
 			
+			
 		}
 		private static void streams() throws IOException {
 			oos = new ObjectOutputStream(conn.getOutputStream());
@@ -78,6 +80,7 @@ public class Server{
 			String msg = "";
 			do {
 				try {
+					
 					byte a = ois.readByte();
 					if (a == 1) {
 						msg = (String) ois.readObject();
@@ -110,7 +113,7 @@ public class Server{
 				dispMessage(Nickname + ": " +text+"\n");
 			}
 			catch(IOException e){
-				gameScreen.chatScreen.append("\nError"); //jt is text area
+				gameScreen.chatScreen.append("\nError"); 
 				
 			}
 		}
@@ -178,5 +181,14 @@ public class Server{
 
 			e.printStackTrace();
 		}
+	}
+	public static void passButton() {
+		try {
+			oos.write(7);
+			oos.flush();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
