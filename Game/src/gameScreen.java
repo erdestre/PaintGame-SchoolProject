@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import java.time.chrono.Era;
+import java.util.concurrent.TimeUnit;
 
 public class gameScreen extends JFrame implements KeyListener, MouseListener, ActionListener {
 	public static Drawing d = new Drawing();
@@ -117,7 +118,6 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		glToolbar = new GridLayout(1,5);
 		jpToolbar.setLayout(glToolbar);
 		jpWhiteBoard.add(jpToolbar);
-
 		Line = new JButton("Line");
 		Line.addActionListener(this);
 		Square = new JButton("Square");
@@ -174,13 +174,19 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jpChat.setBackground(Color.lightGray);
 		jpChat.add(chatScreen,BorderLayout.CENTER);
 		textField();
-		Button();
-	}
-	public void chatScreen() {
 		
+		jpButton = new JPanel();
+		if (permission == false) {
+			Button();
+		}
+		else {
+			glButton = new GridLayout(1,1);
+			jpButton.setLayout(glButton);
+			jpChat.add(jpButton,BorderLayout.NORTH);
+			Time();
+		}
 	}
 	public void Button() {
-		jpButton = new JPanel();
 		glButton = new GridLayout(1,2);
 		jpButton.setLayout(glButton);
 		jpChat.add(jpButton,BorderLayout.NORTH);
@@ -188,24 +194,22 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		Image handIcon = new ImageIcon(this.getClass().getResource("HandIcon.png")).getImage();
 		Hand.setIcon(new ImageIcon(handIcon));
 		jpButton.add(Hand);
-		jlTimer = new JLabel("adana");
-		jpButton.add(jlTimer);
+		Time();
 	}
+	public void Time() {
+		jlTimer = new JLabel("0 : 0");
+		jpButton.add(jlTimer);
+		
+		
+		
+	}
+	
 	public void textField() {
 		textField = new JTextField();
 		jpMenu.add(textField,BorderLayout.SOUTH);
 		textField.addKeyListener(this);
 	}
-	public void AnotherRound () {
-		// Set Word
-		setAnswer();
-		// Reset Counter
-		counter = -1;
-		setCounter();
-		// Reset Screen
-		//
-		d.clear();
-	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Pen) {
@@ -261,7 +265,14 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 
 		}
 		else if (e.getSource() == Pass) {
-			AnotherRound();
+			// Set Word
+			setAnswer();
+			// Reset Counter
+			counter = -1;
+			setCounter();
+			// Reset Screen
+			d.clear();
+			Server.passButton();
 			
 		}
 		else if (e.getSource() == Eraser)
@@ -341,6 +352,5 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		// TODO Auto-generated method stub
 
 	}
-
 
 }
