@@ -162,7 +162,16 @@ public class Client{
 					e.printStackTrace();
 				}
 			}
-			else {System.out.println("ismail");}
+			else {
+				try {
+				oos.writeByte(4);
+				oos.flush();
+				dispMessage("You lose");
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+}
 		}
 		private static void dispMessage(final String string) {
 			SwingUtilities.invokeLater(new Runnable() {

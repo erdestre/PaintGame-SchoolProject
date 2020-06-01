@@ -95,6 +95,10 @@ public class Server{
 						dispMessage(Nickname+" Has won");
 						gameScreen.AnotherRound();
 					}
+					else if (a == 4) {
+						dispMessage(Nickname+" Başaramadı");
+						gameScreen.AnotherRound();
+					}
 				}catch(ClassNotFoundException e){
 					dispMessage("Unknown");
 					

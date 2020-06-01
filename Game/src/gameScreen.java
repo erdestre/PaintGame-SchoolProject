@@ -98,7 +98,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	}
 	public static void setAnswer () {
 		Answer = getAnswer.getAnswer();
-		jlAnswer.setText("Your Word Is: " + Answer.toLowerCase() + " |");
+		jlAnswer.setText("Your Word Is: " + Answer + " |");
 	}
 	public void CounterLabel() {
 		jlCounter = new JLabel("Counter: " + counter);
