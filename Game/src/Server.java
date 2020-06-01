@@ -16,6 +16,7 @@ public class Server{
 	private static ServerSocket server;
 	private static Socket conn;
 	public static boolean playerjoined =false;
+	private static int flag;
 		public Server() {
 			
 		}
@@ -49,7 +50,7 @@ public class Server{
 
 		}
 		private static void Participants() throws IOException{
-			Nickname =Source.Nickname;
+			Nickname = Source.Nickname;
 			oos.writeObject(Nickname);
 			try {
 				Nickname = (String) ois.readObject();
@@ -81,23 +82,24 @@ public class Server{
 			do {
 				try {
 					
-					byte a = ois.readByte();
-					if (a == 1) {
-						msg = (String) ois.readObject();
-						dispMessage(msg);
-					}
-					else if (a == 2) {
-						dispMessage(Nickname+" is answering...");
-						sendAnswer(gameScreen.Answer);
-						
-					}
-					else if (a == 3) {
-						dispMessage(Nickname+" Has won");
-						gameScreen.AnotherRound();
-					}
-					else if (a == 4) {
-						dispMessage(Nickname+" Başaramadı");
-						gameScreen.AnotherRound();
+					flag = ois.readByte();
+					switch(flag) {
+						case 1:
+							msg = (String) ois.readObject();
+							dispMessage(msg);
+							break;
+						case 2:
+							dispMessage(Nickname+" is answering...");
+							sendAnswer(gameScreen.Answer);
+							break;
+						case 3:
+							dispMessage(Nickname+" Has won");
+							gameScreen.AnotherRound();
+							break;
+						case 4:
+							dispMessage(Nickname+" Başaramadı");
+							gameScreen.AnotherRound();
+							break;
 					}
 				}catch(ClassNotFoundException e){
 					dispMessage("Unknown");

@@ -105,7 +105,7 @@ public class Client{
 							gameScreen.d.clear();
 							break;
 						case 8:
-							Client.Answer = (String) ois.readObject();
+							Answer = (String) ois.readObject();
 					}
 				}catch(ClassNotFoundException e){
 					dispMessage("Unknown");
@@ -149,8 +149,10 @@ public class Client{
 					e.printStackTrace();
 				}
 		}
-		public static void Answer(String answer) {
-			if (answer.toLowerCase() == Answer) {
+		public static void Answer(String a) {
+			a.toLowerCase();
+			Answer.toLowerCase();
+			if (a.equals(Answer)) {
 				System.out.println("Halkalı");
 				gameScreen.d.clear();
 				try {
