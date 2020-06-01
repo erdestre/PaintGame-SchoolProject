@@ -1,5 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Time;
 
 import javax.swing.*;
@@ -44,8 +47,22 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 
 
 	public void MainScreen() {
+
 		jf = new JFrame("THE GAME THAT SHOOK THE WORLD FROM STMP STUDIOS");
-		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jf.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		jf.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				if (permission==true)
+				{
+					attendence();
+					((JFrame) (e.getComponent())).dispose();
+				}
+				else{
+					((JFrame) (e.getComponent())).dispose();
+				}
+			}
+		});
 		permission = Account.permission();
 		jf.setLayout(bljf);
 		ScreenPanels();
@@ -94,6 +111,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			setAnswer();
 			Countdown c = new Countdown();
 			c.main();
+
 		}
 		
 		CounterLabel();
@@ -370,5 +388,22 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jlTimer.setText("Timer: "+time);
 		
 	}
+	private void attendence()
+	{
+		try
+		{
+			File folder = new File("Attendence");
+			folder.mkdir();
+			folder= new File("Attendence" + File.separator + "Attendence.txt");
+			folder.createNewFile();
+			PrintWriter print = new PrintWriter("./Attendence/Attendence.txt");
+			print.write(participantScreen.getText());
+			print.close();
+
+		}
+		catch (IOException e){e.printStackTrace();}
+
+	}
+
 
 }
