@@ -66,7 +66,7 @@ public class Server{
 		private static void waitConn() throws IOException{
 			dispMessage("Please wait...\n");
 			conn = server.accept();
-			dispMessage("New Player Has Joined The Room!!\n");
+			dispMessage("A New Player Has Joined The Room!!\n");
 			playerjoined =true;
 			
 			
@@ -89,19 +89,21 @@ public class Server{
 							dispMessage(msg);
 							break;
 						case 2:
-							dispMessage(Nickname+" is answering...");
+							Countdown.Start=false;
+							dispMessage(Nickname+" is answering...\n");
 							sendAnswer(gameScreen.Answer);
 							break;
 						case 3:
-							dispMessage(Nickname+" Has won");
+							dispMessage(Nickname+" Has won\n");
 							gameScreen.AnotherRound();
 							break;
 						case 4:
-							dispMessage(Nickname+" Başaramadı");
+							dispMessage(Nickname+" Başaramadı\n");
 							gameScreen.AnotherRound();
 							break;
 						case 5:
 							Countdown.Start = true;
+							break;
 					}
 				}catch(ClassNotFoundException e){
 					dispMessage("Unknown");
@@ -139,12 +141,14 @@ public class Server{
 				
 				@Override
 				public void run() {
+					
 					gameScreen.chatScreen.append(string);
 					
 				}
 			});
 			
 		}
+		
 		public static void sendpaintinfo(int m,int x,int y,int ox,int oy){
 			int[] a = new int[5];
 			try {
@@ -219,7 +223,8 @@ public class Server{
 		}
 	}
 	public static void sendTimer(String time) {
-		try {
+		
+			try {
 			oos.write(9);
 			oos.writeObject(time);
 			oos.flush();

@@ -212,6 +212,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	}
 	public static void AnotherRound() {
 		// Set Word
+		Countdown.Start=false;
 		setAnswer();
 		// Reset Counter
 		counter = -1;
@@ -219,6 +220,9 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		// Reset Screen
 		d.clear();
 		Server.passButton();
+		Countdown.restart=true;
+		Countdown.Start=true;
+		
 					
 	}
 	
@@ -359,7 +363,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+
 
 	}
 	public static void Timer(String time) {

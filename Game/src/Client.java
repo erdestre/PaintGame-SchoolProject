@@ -108,9 +108,11 @@ public class Client{
 							break;
 						case 8:
 							Answer = (String) ois.readObject();
+							break;
 						case 9:
 							time = (String) ois.readObject();
 							gameScreen.Timer(time);
+							break;
 							
 					}
 				}catch(ClassNotFoundException e){
@@ -159,12 +161,11 @@ public class Client{
 			a.toLowerCase();
 			Answer.toLowerCase();
 			if (a.equals(Answer)) {
-				System.out.println("Halkalı");
 				gameScreen.d.clear();
 				try {
 					oos.writeByte(3);
 					oos.flush();
-					dispMessage("You Win");
+					dispMessage("You Win\n");
 				} catch (IOException e) {
 
 					e.printStackTrace();
@@ -174,7 +175,7 @@ public class Client{
 				try {
 				oos.writeByte(4);
 				oos.flush();
-				dispMessage("You lose");
+				dispMessage("You lose\n");
 			} catch (IOException e) {
 
 				e.printStackTrace();
@@ -195,6 +196,7 @@ public class Client{
 				
 				@Override
 				public void run() {
+					gameScreen.chatScreen.setFont(gameScreen.chatScreen.getFont().deriveFont(Font.PLAIN));
 					gameScreen.chatScreen.append(string);
 					
 				}
