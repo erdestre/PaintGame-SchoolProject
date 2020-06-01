@@ -10,6 +10,7 @@ import java.io.*;
 
 public class Client{
 	
+	static String time;
 	private static ObjectOutputStream oos;
 	private static ObjectInputStream ois;
 	private static Socket client;
@@ -28,6 +29,7 @@ public class Client{
 						connToS();
 						streams();
 						Participants();
+						Start();
 						processConn();
 					}
 					catch(EOFException e){
@@ -106,6 +108,10 @@ public class Client{
 							break;
 						case 8:
 							Answer = (String) ois.readObject();
+						case 9:
+							time = (String) ois.readObject();
+							gameScreen.Timer(time);
+							
 					}
 				}catch(ClassNotFoundException e){
 					dispMessage("Unknown");
@@ -174,6 +180,15 @@ public class Client{
 				e.printStackTrace();
 			}
 }
+		}
+		public static void Start() {
+			try {
+				oos.write(5);
+				oos.flush();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
 		}
 		private static void dispMessage(final String string) {
 			SwingUtilities.invokeLater(new Runnable() {

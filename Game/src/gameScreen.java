@@ -22,7 +22,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	JPanel jpParticipant;
 	JPanel jpChat;
 	static JLabel jlAnswer;
-	JLabel jlTimer;
+	static JLabel jlTimer;
 	JPanel JpTopmenu;
 
 	BorderLayout bljf;
@@ -198,7 +198,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		Time();
 	}
 	public void Time() {
-		jlTimer = new JLabel("0 : 0");
+		jlTimer = new JLabel();
 		jpButton.add(jlTimer);
 		
 		
@@ -361,6 +361,10 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+	public static void Timer(String time) {
+		jlTimer.setText("Timer: "+time);
+		
 	}
 
 }

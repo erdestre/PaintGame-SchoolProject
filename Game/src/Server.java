@@ -100,6 +100,8 @@ public class Server{
 							dispMessage(Nickname+" Başaramadı");
 							gameScreen.AnotherRound();
 							break;
+						case 5:
+							Countdown.Start = true;
 					}
 				}catch(ClassNotFoundException e){
 					dispMessage("Unknown");
@@ -210,6 +212,16 @@ public class Server{
 		try {
 			oos.writeByte(8);
 			oos.writeObject(Answer);
+			oos.flush();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
+	public static void sendTimer(String time) {
+		try {
+			oos.write(9);
+			oos.writeObject(time);
 			oos.flush();
 		} catch (IOException e) {
 
