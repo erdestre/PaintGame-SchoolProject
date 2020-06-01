@@ -92,6 +92,8 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			jlAnswer = new JLabel("YOUR WORD IS:  ");
 			jpWhiteBoard.add(jlAnswer);
 			setAnswer();
+			Countdown c = new Countdown();
+			c.main();
 		}
 		
 		CounterLabel();
