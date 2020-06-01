@@ -2,6 +2,7 @@ import java.awt.*;
 import java.net.*;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import java.io.*;
@@ -11,10 +12,10 @@ public class Client{
 	
 	private static ObjectOutputStream oos;
 	private static ObjectInputStream ois;
-	private ServerSocket server;
 	private static Socket client;
 	private static String srv;
 	private static byte flag;
+	public static String Answer;
 		public Client(String info) {
 			srv = info;
 			
@@ -93,6 +94,7 @@ public class Client{
 						case 4:
 							gameScreen.d.clear();
 							break;
+						case 5:
 						
 						case 6:
 							gameScreen.setCounter();
@@ -102,6 +104,8 @@ public class Client{
 							gameScreen.setCounter();
 							gameScreen.d.clear();
 							break;
+						case 8:
+							Client.Answer = (String) ois.readObject();
 					}
 				}catch(ClassNotFoundException e){
 					dispMessage("Unknown");
@@ -134,6 +138,32 @@ public class Client{
 				
 			}
 		}
+		public static void Hand() {
+			
+				
+				try {
+					oos.writeByte(2);
+					oos.flush();
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}
+		}
+		public static void Answer(String answer) {
+			if (answer.toLowerCase() == Answer) {
+				System.out.println("Halkalı");
+				gameScreen.d.clear();
+				try {
+					oos.writeByte(3);
+					oos.flush();
+					dispMessage("You Win");
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}
+			}
+			else {System.out.println("ismail");}
+		}
 		private static void dispMessage(final String string) {
 			SwingUtilities.invokeLater(new Runnable() {
 				
@@ -150,5 +180,6 @@ public class Client{
 			return Nickname;
 			
 		}
+		
 		
 		}

@@ -10,7 +10,7 @@ import java.io.*;
 
 public class Server{
 	
-	
+	static String Nickname;
 	private static ObjectOutputStream oos;
 	private static ObjectInputStream ois;
 	private static ServerSocket server;
@@ -49,7 +49,7 @@ public class Server{
 
 		}
 		private static void Participants() throws IOException{
-			String Nickname =Source.Nickname;
+			Nickname =Source.Nickname;
 			oos.writeObject(Nickname);
 			try {
 				Nickname = (String) ois.readObject();
@@ -85,6 +85,15 @@ public class Server{
 					if (a == 1) {
 						msg = (String) ois.readObject();
 						dispMessage(msg);
+					}
+					else if (a == 2) {
+						dispMessage(Nickname+" is answering...");
+						sendAnswer(gameScreen.Answer);
+						
+					}
+					else if (a == 3) {
+						dispMessage(Nickname+" Has won");
+						gameScreen.AnotherRound();
 					}
 				}catch(ClassNotFoundException e){
 					dispMessage("Unknown");
@@ -184,11 +193,21 @@ public class Server{
 	}
 	public static void passButton() {
 		try {
-			oos.write(7);
+			oos.writeByte(7);
 			oos.flush();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 		
+	}
+	public static void sendAnswer(String Answer) {
+		try {
+			oos.writeByte(8);
+			oos.writeObject(Answer);
+			oos.flush();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
 	}
 }

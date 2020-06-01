@@ -12,7 +12,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	public static Drawing d = new Drawing();
 	static int counter = 0;
 	static boolean permission;
-	String Answer;
+	static String Answer;
 
 	JFrame jf;
 
@@ -21,7 +21,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	JPanel jpMenu;
 	JPanel jpParticipant;
 	JPanel jpChat;
-	JLabel jlAnswer;
+	static JLabel jlAnswer;
 	JLabel jlTimer;
 	JPanel JpTopmenu;
 
@@ -40,7 +40,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 	static JTextArea chatScreen;
 	JTextField textField;
 
-	JButton Line, Square, Circle, Pen, selectColor, Eraser, Pass;
+	JButton Line, Square, Circle, Pen, selectColor, Eraser, Pass, Hand;
 
 
 	public void MainScreen() {
@@ -63,7 +63,6 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 			jf.setSize(1050,600);
 			jf.setVisible(true);
 			Client.runClient();
-			//Server.(Source.Nickname);
 		}
 		/*jf.addComponentListener(new ComponentAdapter( ) {
 			public void componentResized(ComponentEvent ev) {
@@ -77,7 +76,6 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		jf.setLayout(blMainScreen);
 		WhiteBoard();
 		Menu();
-
 	}
 	public void WhiteBoard() {
 
@@ -98,7 +96,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		
 		CounterLabel();
 	}
-	public void setAnswer () {
+	public static void setAnswer () {
 		Answer = getAnswer.getAnswer();
 		jlAnswer.setText("Your Word Is: " + Answer.toLowerCase() + " |");
 	}
@@ -190,10 +188,11 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		glButton = new GridLayout(1,2);
 		jpButton.setLayout(glButton);
 		jpChat.add(jpButton,BorderLayout.NORTH);
-		JButton Hand= new JButton("");
+		Hand= new JButton();
 		Image handIcon = new ImageIcon(this.getClass().getResource("HandIcon.png")).getImage();
 		Hand.setIcon(new ImageIcon(handIcon));
 		jpButton.add(Hand);
+		Hand.addActionListener(this);
 		Time();
 	}
 	public void Time() {
@@ -208,6 +207,17 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		textField = new JTextField();
 		jpMenu.add(textField,BorderLayout.SOUTH);
 		textField.addKeyListener(this);
+	}
+	public static void AnotherRound() {
+		// Set Word
+		setAnswer();
+		// Reset Counter
+		counter = -1;
+		setCounter();
+		// Reset Screen
+		d.clear();
+		Server.passButton();
+					
 	}
 	
 	@Override
@@ -265,15 +275,7 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 
 		}
 		else if (e.getSource() == Pass) {
-			// Set Word
-			setAnswer();
-			// Reset Counter
-			counter = -1;
-			setCounter();
-			// Reset Screen
-			d.clear();
-			Server.passButton();
-			
+			AnotherRound();
 		}
 		else if (e.getSource() == Eraser)
 		{
@@ -289,6 +291,12 @@ public class gameScreen extends JFrame implements KeyListener, MouseListener, Ac
 		d.mode = memory;
 		Server.clearscreen();
 
+		}
+		else if (e.getSource() == Hand) {
+			Client.Hand();
+			String Answer = JOptionPane.showInputDialog("Write Your Answer: ");
+			Client.Answer(Answer);
+			
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Something Went Wrong");

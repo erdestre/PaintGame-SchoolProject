@@ -16,7 +16,7 @@ public class getAnswer {
 		if (Answer == null || Answer.length() >= 15 || Answer.length() < 2) {
 			return getAnswer();
 		}
-		else return Answer;
-		 
+		else return Answer.toLowerCase();
+		
 		}
 	}
